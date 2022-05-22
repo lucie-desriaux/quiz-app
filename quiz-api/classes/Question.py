@@ -1,6 +1,5 @@
 import base64
 import json
-from turtle import position
 from classes.PossibleAnswer import PossibleAnswer, CreatePossibleAnswers, CheckCorrectAnswer
 import db_utils
 

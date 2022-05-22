@@ -19,11 +19,12 @@ class PossibleAnswer():
 
 
 def CheckCorrectAnswer(possibleAnswers):
-	counter = 0
+	s = set([pa.text for pa in possibleAnswers])
+	if len(s) != len(possibleAnswers):
+		return False
 	for pa in possibleAnswers:
 		if pa.isCorrect == 1:
-			counter+=1
-	return True if counter == 1 else False
+			return True
 		
 
 def CreatePossibleAnswers(questionId, possibleAnswers):

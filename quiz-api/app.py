@@ -1,6 +1,6 @@
 from flask import Flask, request
 import jwt_utils
-from classes.Question import CreateQuestion, GetQuestion, DeleteQuestion, UpdateQuestion, GetAllQuestions
+from classes.Question import CountQuestions, CreateQuestion, GetQuestion, DeleteQuestion, UpdateQuestion, GetAllQuestions
 
 app = Flask(__name__)
 
@@ -11,7 +11,8 @@ def hello_world():
 
 @app.route('/quiz-info', methods=['GET'])
 def GetQuizInfo():
-	return {"size": 0, "scores": []}, 200
+	size = CountQuestions()
+	return {"size": size, "scores": []}, 200
 
 @app.route('/login', methods=['POST'])
 def Login():
