@@ -1,5 +1,6 @@
 import base64
 import json
+from turtle import position
 from classes.PossibleAnswer import PossibleAnswer, CreatePossibleAnswers, CheckCorrectAnswer
 import db_utils
 
@@ -39,6 +40,50 @@ def DbObjectToJson(obj, paList):
 def ObjectListToJson(objList):
     return json.dumps([obj.__dict__ for obj in objList], cls = PossibleAnswerEncoder)
 
+def CountQuestions():
+    request = f"SELECT COUNT(id) FROM Question"
+    return db_utils.callDb_oneResult(request)[0]
+
+def CheckPositionCreate(position):
+    nbOfQuestions = CountQuestions()
+    return True if position <= (nbOfQuestions+1) and position > 0 else False
+
+def CheckPositionUpdate(position):
+    nbOfQuestions = CountQuestions()
+    return True if position <= nbOfQuestions and position > 0 else False
+
+def IncrementPosition(position):
+    newPos = position+1
+    request = f"UPDATE Question SET position = {newPos} WHERE position = {position}"
+    db_utils.callDb_oneResult(request)
+
+def DecrementPosition(position):
+    newPos = position-1
+    request = f"UPDATE Question SET position = {newPos} WHERE position = {position}"
+    db_utils.callDb_oneResult(request)
+
+def AddPosition(position):
+    nbOfQuestions = CountQuestions()
+    for i in range(nbOfQuestions, position-1, -1):
+        IncrementPosition(i)
+        i-=1
+
+def SwitchPositions(actualPos, updatedPos):
+    actualPos = int(actualPos)
+    request = f"UPDATE Question SET position = 0 WHERE position = {actualPos}"
+    db_utils.callDb_oneResult(request)  
+    if actualPos < updatedPos:
+        for i in range(actualPos+1, updatedPos+1):
+            DecrementPosition(i)
+    else:
+        for i in range(actualPos-1, updatedPos-1, -1):
+            IncrementPosition(i)
+
+def DeletePosition(position):
+    nbOfQuestions = CountQuestions()
+    for i in range(position+1, nbOfQuestions+2):
+        DecrementPosition(i)
+
 def GetQuestionId(position):
     request = f"SELECT id FROM Question WHERE position = {position}"
     res = db_utils.callDb_oneResult(request)
@@ -49,6 +94,14 @@ def CreateQuestion(json):
     question = JsonToObject(json)
     if not CheckCorrectAnswer(question.possibleAnswers):
         return '', 400
+
+    # Check if position is valid
+    if not CheckPositionCreate(question.position):
+        return '', 403
+
+    # If position already exists 
+    if GetQuestion(question.position)[1] != 404: 
+        AddPosition(question.position)
 
     # Insert new question
     request = f"INSERT INTO Question (title, text, image, position) VALUES (\"{question.title}\",\"{question.text}\",\"{question.image}\",{question.position})"
@@ -87,9 +140,13 @@ def DeleteQuestion(position):
     questionId = GetQuestionId(position)
     if not questionId:
         return '', 404
+
     # Delete question
     request = f"DELETE FROM Question WHERE position = {position}"
     db_utils.callDb_oneResult(request)
+
+    # Switch positions after delete
+    DeletePosition(int(position))
 
     # Delete possible answers
     request = f"DELETE FROM PossibleAnswer WHERE questionId = {questionId}"
@@ -102,8 +159,16 @@ def UpdateQuestion(position, body):
     if not questionId:
         return 404
 
-    # Check if possible answers are correct
     question = JsonToObject(body)
+
+    # Check if new position is valid 
+    if not CheckPositionUpdate(question.position):
+        return '', 403
+
+    # Switch positions
+    SwitchPositions(position, question.position)
+
+    # Check if possible answers are correct
     if not CheckCorrectAnswer(question.possibleAnswers):
         return 400
 
