@@ -48,7 +48,7 @@ def CreateQuestion(json):
     # Check if possible answers are correct
     question = JsonToObject(json)
     if not CheckCorrectAnswer(question.possibleAnswers):
-        return 0
+        return '', 400
 
     # Insert new question
     request = f"INSERT INTO Question (title, text, image, position) VALUES (\"{question.title}\",\"{question.text}\",\"{question.image}\",{question.position})"
@@ -57,6 +57,7 @@ def CreateQuestion(json):
 
     # Insert possible answers for this question
     CreatePossibleAnswers(questionId, question.possibleAnswers)
+    return '', 200
 
 def GetQuestion(position):
     request = f"SELECT * FROM Question WHERE position = {position}"
@@ -85,7 +86,7 @@ def DeleteQuestion(position):
     # Check if question exists
     questionId = GetQuestionId(position)
     if not questionId:
-        return 0
+        return '', 404
     # Delete question
     request = f"DELETE FROM Question WHERE position = {position}"
     db_utils.callDb_oneResult(request)
@@ -93,6 +94,7 @@ def DeleteQuestion(position):
     # Delete possible answers
     request = f"DELETE FROM PossibleAnswer WHERE questionId = {questionId}"
     db_utils.callDb_oneResult(request)
+    return '', 204
 
 def UpdateQuestion(position, body):
     # Check if question exists

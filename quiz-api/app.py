@@ -25,9 +25,7 @@ def AddQuestion():
 	token = request.headers.get('Authorization')
 	if token is None or jwt_utils.decode_token(token.removeprefix("Bearer ")) != "quiz-app-admin":
 		return '', 401
-	if CreateQuestion(request.get_json()) == 0:
-		return '', 400
-	return '', 200
+	return CreateQuestion(request.get_json())
 
 @app.route('/questions/<position>', methods=['GET'])
 def GetQuestionByPosition(position):
@@ -42,9 +40,7 @@ def DeleteQuestionByPosition(position):
 	token = request.headers.get('Authorization')
 	if token is None or jwt_utils.decode_token(token.removeprefix("Bearer ")) != "quiz-app-admin":
 		return '', 401
-	if DeleteQuestion(position) == 0:
-		return '', 404
-	return '', 204
+	return DeleteQuestion(position)
 
 @app.route('/questions/<position>', methods=['PUT'])
 def UpdateQuestionByPosition(position):
