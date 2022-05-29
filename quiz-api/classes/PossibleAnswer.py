@@ -31,3 +31,5 @@ def CreatePossibleAnswers(questionId, possibleAnswers):
 		isCorrect = 1 if pa.isCorrect else 0
 		request = f"INSERT INTO PossibleAnswer (text, isCorrect, questionId) VALUES (\"{pa.text}\",{isCorrect},{questionId})"
 		db_utils.callDb_oneResult(request)
+
+

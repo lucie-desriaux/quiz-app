@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Flask, request
 import jwt_utils
 from classes.Question import CreateQuestion, GetQuestion, DeleteQuestion, UpdateQuestion, GetAllQuestions
@@ -54,5 +55,14 @@ def UpdateQuestionByPosition(position):
 	payload = request.get_json()
 	return '', UpdateQuestion(position, payload)
 
+
+
+# @app.route('/participations', methods=['DELETE'])
+# def DeleteParticipations(questionId, possibleAnswers);
+# 	return DeleteAnswers(questionId, possibleAnswers)
+
+
+
 if __name__ == "__main__":
 	app.run(ssl_context='adhoc')
+
