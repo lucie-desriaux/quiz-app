@@ -27,7 +27,7 @@ class PossibleAnswerEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 def ObjectToJson(obj):
-    return json.dumps(obj.__dict__, cls=PossibleAnswerEncoder)
+    return json.dumps(obj.__dict__, cls = PossibleAnswerEncoder)
 
 def DbObjectToObject(obj, paList):
     return Question(obj[1], obj[2], obj[3], obj[4], paList)
@@ -88,7 +88,7 @@ def GetQuestionId(position):
     res = db_utils.callDb_oneResult(request)
     return res[0] if res != None else ''
 
-def CreateQuestion(json):
+def AddQuestion(json):
     # Check if possible answers are correct
     question = JsonToObject(json)
     if not CheckCorrectAnswer(question.possibleAnswers):
@@ -119,7 +119,7 @@ def GetQuestion(position):
     request = f"SELECT * FROM PossibleAnswer WHERE questionId = {question[0]}"
     paList = []
     for pa in db_utils.callDb_multipleResults(request):
-        paList.append(PossibleAnswer.DbObjectToJson(pa))
+        paList.append(PossibleAnswer.DbObjectToObject(pa))
     return DbObjectToJson(question, paList), 200
 
 def GetAllQuestions():
@@ -130,9 +130,9 @@ def GetAllQuestions():
         request = f"SELECT * FROM PossibleAnswer WHERE questionId = {q[0]}"
         paList = []
         for pa in db_utils.callDb_multipleResults(request):
-            paList.append(PossibleAnswer.DbObjectToJson(pa))
+            paList.append(PossibleAnswer.DbObjectToObject(pa))
         res.append(DbObjectToObject(q, paList))
-    return ObjectListToJson(res), 200
+    return res
 
 def DeleteQuestion(position):
     # Check if question exists
@@ -180,3 +180,18 @@ def UpdateQuestion(position, body):
     db_utils.callDb_oneResult(request)
     CreatePossibleAnswers(questionId, question.possibleAnswers)
     return 200
+
+def GetRightAnswers():
+    result = []
+    paList = []
+    n = 1
+    questions = GetAllQuestions()
+    for q in questions:
+        for pa in q.possibleAnswers:
+            if pa.isCorrect is True:
+                paList.append(n)
+            n += 1
+        result.append(paList)
+        n = 1
+        paList = []
+    return result

@@ -1,6 +1,9 @@
 from flask import Flask, request
-import jwt_utils
-from classes.Question import CountQuestions, CreateQuestion, GetQuestion, DeleteQuestion, UpdateQuestion, GetAllQuestions
+from jwt_utils import build_token, decode_token
+from classes.Question import CountQuestions, AddQuestion, GetQuestion, DeleteQuestion, UpdateQuestion, GetAllQuestions, ObjectListToJson
+from classes.ParticipationResult import GetAllScores, DeleteParticipations, AddParticipation
+
+ADMIN = "quiz-app-admin"
 
 app = Flask(__name__)
 
@@ -12,21 +15,22 @@ def hello_world():
 @app.route('/quiz-info', methods=['GET'])
 def GetQuizInfo():
 	size = CountQuestions()
-	return {"size": size, "scores": []}, 200
+	scores = GetAllScores()
+	return {"size": size, "scores": scores}, 200
 
 @app.route('/login', methods=['POST'])
 def Login():
 	payload = request.get_json()
 	if payload['password'] == 'Vive l\'ESIEE !':
-		return {"token": jwt_utils.build_token()}, 200
+		return {"token": build_token()}, 200
 	return '', 401
 
 @app.route('/questions', methods=['POST'])
-def AddQuestion():
+def CreateQuestion():
 	token = request.headers.get('Authorization')
-	if token is None or jwt_utils.decode_token(token.removeprefix("Bearer ")) != "quiz-app-admin":
+	if token is None or decode_token(token.removeprefix("Bearer ")) != ADMIN:
 		return '', 401
-	return CreateQuestion(request.get_json())
+	return AddQuestion(request.get_json())
 
 @app.route('/questions/<position>', methods=['GET'])
 def GetQuestionByPosition(position):
@@ -34,22 +38,34 @@ def GetQuestionByPosition(position):
 
 @app.route('/questions', methods=['GET'])
 def GetQuestions():
-	return GetAllQuestions()
+	res = GetAllQuestions()
+	return ObjectListToJson(res), 200
 
 @app.route('/questions/<position>', methods=['DELETE'])
 def DeleteQuestionByPosition(position):
 	token = request.headers.get('Authorization')
-	if token is None or jwt_utils.decode_token(token.removeprefix("Bearer ")) != "quiz-app-admin":
+	if token is None or decode_token(token.removeprefix("Bearer ")) != ADMIN:
 		return '', 401
 	return DeleteQuestion(position)
 
 @app.route('/questions/<position>', methods=['PUT'])
 def UpdateQuestionByPosition(position):
 	token = request.headers.get('Authorization')
-	if token is None or jwt_utils.decode_token(token.removeprefix("Bearer ")) != "quiz-app-admin":
+	if token is None or decode_token(token.removeprefix("Bearer ")) != ADMIN:
 		return '', 401
 	payload = request.get_json()
 	return '', UpdateQuestion(position, payload)
+
+@app.route('/participations', methods=['DELETE'])
+def DeleteAllParticipations():
+	token = request.headers.get('Authorization')
+	if token is None or decode_token(token.removeprefix("Bearer ")) != ADMIN:
+		return '', 401
+	return DeleteParticipations()
+
+@app.route('/participations', methods=['POST'])
+def CreateParticipation():
+	return AddParticipation(request.get_json())
 
 if __name__ == "__main__":
 	app.run(ssl_context='adhoc')
