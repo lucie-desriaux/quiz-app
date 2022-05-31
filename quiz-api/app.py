@@ -68,5 +68,5 @@ def CreateParticipation():
 	return AddParticipation(request.get_json())
 
 if __name__ == "__main__":
-	app.run(ssl_context='adhoc')
+	app.run()
 
