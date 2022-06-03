@@ -6,13 +6,6 @@ class AnswerSummary():
 
 def SetAnswerSummary(answers, correctAnswers):
     res = []
-    isCorrect = 0
     for i in range(len(correctAnswers)):
-        for j in range(len(correctAnswers[i])):
-            if correctAnswers[i][j] == answers[i]:
-                isCorrect = 1
-                break
-        param = correctAnswers[i][0] if len(correctAnswers[i]) == 1 else correctAnswers[i]
-        res.append(AnswerSummary(param, isCorrect))
-        isCorrect = 0
+        res.append(AnswerSummary(correctAnswers[i], correctAnswers[i] == answers[i]))
     return res

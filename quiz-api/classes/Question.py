@@ -183,15 +183,13 @@ def UpdateQuestion(position, body):
 
 def GetRightAnswers():
     result = []
-    paList = []
-    n = 1
+    position = 1
     questions = GetAllQuestions()
     for q in questions:
         for pa in q.possibleAnswers:
             if pa.isCorrect is True:
-                paList.append(n)
-            n += 1
-        result.append(paList)
-        n = 1
-        paList = []
+                result.append(position)
+                break
+            position += 1
+        position = 1
     return result
