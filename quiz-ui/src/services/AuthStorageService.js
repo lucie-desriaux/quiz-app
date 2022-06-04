@@ -6,6 +6,6 @@ export default {
 		window.localStorage.setItem("token", token);
   },
   getToken() {
-		window.localStorage.getItem("token");
+		return window.localStorage.getItem("token");
   }
 };

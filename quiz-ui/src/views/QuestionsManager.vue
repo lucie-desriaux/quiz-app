@@ -45,9 +45,13 @@ export default {
         : this.loadQuestionByPosition(++this.currentQuestionPosition);
     },
     async endQuiz() {
-      var username = participationStorageService.getPlayerName();
+      var playerName = participationStorageService.getPlayerName();
       var body =
-        '{"playerName": "' + username + '", "answers": [' + this.answers + "]}";
+        '{"playerName": "' +
+        playerName +
+        '", "answers": [' +
+        this.answers +
+        "]}";
       var result = await quizApiService.postParticipation(body);
       participationStorageService.saveParticipationScore(result.data.score);
       this.$router.push("/results");
