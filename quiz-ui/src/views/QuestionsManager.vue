@@ -45,15 +45,7 @@ export default {
         : this.loadQuestionByPosition(++this.currentQuestionPosition);
     },
     async endQuiz() {
-      var playerName = participationStorageService.getPlayerName();
-      var body =
-        '{"playerName": "' +
-        playerName +
-        '", "answers": [' +
-        this.answers +
-        "]}";
-      var result = await quizApiService.postParticipation(body);
-      participationStorageService.saveParticipationScore(result.data.score);
+      participationStorageService.saveAnswers(this.answers);
       this.$router.push("/results");
     },
   },
