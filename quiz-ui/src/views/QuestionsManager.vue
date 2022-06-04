@@ -1,5 +1,6 @@
 <template>
   <h1>Questions manager</h1>
+
   <h1>Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}</h1>
   <QuestionDisplay
     :question="currentQuestion"
@@ -65,7 +66,13 @@ export default {
     this.currentQuestion.questionImage = q.image;
     this.currentQuestion.possibleAnswers = q.possibleAnswers;
   },
+  methods: {
+    launchScore() {
+      this.$router.push("/score");
+    }
+  }
 };
 </script>
 
-<style></style>
+<style>
+</style>
