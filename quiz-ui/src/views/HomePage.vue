@@ -43,33 +43,15 @@ export default {
 
 <style>
 h2 {
-  font-size: 2.5em;
   margin: 0 auto;
 }
 
 h3 {
-  font-size: 1.5em;
   margin-bottom: 5%;
-  color: #d393eb;
-  font-weight: bold;
 }
 
 .logo {
   margin-top: 7%;
-}
-
-.main-container {
-  display: flex;
-  justify-content: space-around;
-  width: 880px;
-  text-align: center;
-  margin: 0 auto;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, 25%);
 }
 
 .container-left,
