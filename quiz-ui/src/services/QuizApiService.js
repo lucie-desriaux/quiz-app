@@ -33,7 +33,26 @@ export default {
   getQuestion(position) {
     return this.call("get", "questions/" + position);
   },
-  getAllQuestions() {
-    return this.call("get", "questions/");
+  getQuestions() {
+    return this.call("get", "questions");
   },
+  postParticipation(body) {
+    return this.call("post", "participations", body);
+  },
+  // Partie bonus : authentification
+  login(body) {
+    return this.call("post", "login", body);
+  },
+  postQuestion(body, token) {
+    return this.call("post", "questions", body, token);
+  },
+  putQuestion(position, body, token) {
+    return this.call("put", "questions/" + position, body, token);
+  },
+  deleteQuestion(position, token) {
+    return this.call("delete", "questions/" + position, null, token);
+  },
+  deleteParticipations(token) {
+    return this.call("delete", "participations", null, token);
+  }
 };
