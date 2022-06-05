@@ -63,13 +63,9 @@ export default {
     this.currentQuestion.questionImage = q.image;
     this.currentQuestion.possibleAnswers = q.possibleAnswers;
   },
-  // methods: {
-  //   launchScore() {
-  //     this.$router.push("/score");
-  //   }
-  // }
+
+
 };
 </script>
 
-<style>
-</style>
+<style></style>

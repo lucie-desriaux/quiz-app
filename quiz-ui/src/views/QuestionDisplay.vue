@@ -19,11 +19,7 @@ export default {
       type: Object,
     },
   },
-  // methods: {
-  //   getQuestion() {
-  //     //this.$emit('answer-selected', 2);
-  //   },
-  // },
+
 };
 </script>
 
