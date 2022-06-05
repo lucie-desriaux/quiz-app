@@ -4,11 +4,7 @@
     <p>Saisissez votre nom :</p>
     <div class="input-container">
       <input type="text" placeholder="Username" v-model="username" />
-      <button
-        type="button"
-        class="btn btn-outline-primary btn-grey"
-        @click="launchNewQuiz"
-      >
+      <button type="button" class="btn btn-outline-primary btn-grey" @click="launchNewQuiz">
         GO!
       </button>
     </div>
@@ -59,13 +55,15 @@ export default {
   height: 35px;
 }
 
-.input-container input[type="text"] {
+.input-container input[type="text"],
+.input-container input[type="password"] {
   padding: 12px 10px;
   box-sizing: border-box;
   color: lightslategray;
 }
 
-.input-container input[type="text"]:focus {
+.input-container input[type="text"]:focus,
+.input-container input[type="password"]:focus {
   outline: none;
 }
 
