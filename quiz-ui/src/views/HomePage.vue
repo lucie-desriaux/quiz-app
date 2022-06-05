@@ -104,5 +104,6 @@ h3 {
 
 .score {
   font-weight: bold;
+  padding-right: 5%;
 }
 </style>

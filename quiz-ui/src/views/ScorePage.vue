@@ -5,18 +5,15 @@
       <img class="gif" src="../assets/images/stitch-sad.gif" />
       <div>
         <h2>Votre score est de {{ score }} points</h2>
-        <p>Bien joué {{ playerName }} ! Vous avez fait un sans faute !</p>
+        <p>Bien joué {{ playerName }}, vous avez fini le quiz !</p>
       </div>
     </div>
-
-    <classement></classement>
-
     <div class="container-score-part d-flex">
       <div class="part-left-score">
         <h3>Meilleurs scores</h3>
         <div class="high-score-container ">
-          <div class="heigh-score" v-for="scoreEntry in registeredScores" v-bind:key="scoreEntry.date">
-            <div><span class="classement">{{ classement + 1 }}. </span>{{ scoreEntry.playerName }}</div>
+          <div class="heigh-score" v-for="(scoreEntry, index) in registeredScores" v-bind:key="scoreEntry.date">
+            <div><span class="classement">{{ index + 1 }}. </span>{{ scoreEntry.playerName }}</div>
             <div class="score"> {{ scoreEntry.score }}</div>
           </div>
         </div>
@@ -24,9 +21,11 @@
       <div class="part-right-score">
         <h3>Vos scores</h3>
         <div class="your-score-container">
-          <div class="your-score" v-for="scoreEntry in registeredScores" v-bind:key="scoreEntry.date">
-            <div>{{ scoreEntry.playerName }}</div>
-            <div class="score"> {{ scoreEntry.score }}</div>
+          <div v-for="scoreEntry in registeredScores" v-bind:key="scoreEntry.date">
+            <div class="your-score" v-if="scoreEntry.playerName == playerName">
+              <div>{{ scoreEntry.playerName }}</div>
+              <div class="score"> {{ scoreEntry.score }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -70,14 +69,7 @@ export default {
     var quizInfo = quizInfoApiResult.data.scores;
     this.registeredScores = quizInfo;
 
-    var sizeArray = quizInfo.length;
-    this.lastRegistered = quizInfo[3];
-
-    console.log(this.lastRegistered);
-
-    console.log("TEST");
-    console.log(this.classement);
-    // console.log(quizInfo[sizeArray - 1]);
+    console.log(result.data);
 
   },
 };
@@ -147,5 +139,6 @@ export default {
 
 .classement {
   font-size: 1.5em;
+  font-weight: bold;
 }
 </style>
