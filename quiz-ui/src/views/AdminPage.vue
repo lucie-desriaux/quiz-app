@@ -17,8 +17,8 @@
       Mot de passe erroné
     </p>
   </div>
-  <div v-else id="admin" class="main-container flex-column">
-    <h1>Administration</h1>
+  <div v-else id="admin" class="flex-column">
+    <!-- <h1>Administration</h1> -->
     <QuestionAdminDisplay v-if="action === 'display'" />
     <QuestionEdition v-else-if="action === 'edit'" :question="questionToEdit" />
     <QuestionsList v-else @question-selected="questionClickedHandler" />
