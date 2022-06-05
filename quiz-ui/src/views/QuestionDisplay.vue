@@ -2,10 +2,7 @@
   <p>{{ question.questionText }}</p>
   <p>{{ question.questionTitle }}</p>
   <img v-if="question.questionImage" :src="question.questionImage" />
-  <a
-    v-for="(possibleAnswers, index) in question.possibleAnswers"
-    @click="$emit('answer-selected', index)"
-  >
+  <a v-for="(possibleAnswers, index) in question.possibleAnswers" @click="$emit('answer-selected', index)">
     {{ possibleAnswers.text }}
   </a>
 </template>
@@ -22,7 +19,9 @@ export default {
       type: Object,
     },
   },
+
 };
 </script>
 
-<style></style>
+<style>
+</style>

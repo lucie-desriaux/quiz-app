@@ -13,9 +13,11 @@
     </div>
     <div class="container-right">
       <h3>Meilleurs scores</h3>
-      <div class="name-score" v-for="scoreEntry in registeredScores" v-bind:key="scoreEntry.date">
-        <div>{{ scoreEntry.playerName }}</div>
-        <div class="score"> {{ scoreEntry.score }}</div>
+      <div class="cont-score">
+        <div class="name-score" v-for="scoreEntry in registeredScores" v-bind:key="scoreEntry.date">
+          <div>{{ scoreEntry.playerName }}</div>
+          <div class="score"> {{ scoreEntry.score }}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -88,10 +90,20 @@ h3 {
 .name-score {
   display: flex;
   justify-content: space-between;
-  width: 40%;
+  width: 100%;
+  padding: 0 2% 0 2% 0;
+}
+
+.cont-score {
+  width: 50%;
+  height: 200px;
+  overflow-y: auto;
+  scrollbar-color: #d393eb lightgrey;
+  scrollbar-width: thin;
 }
 
 .score {
   font-weight: bold;
+  padding-right: 5%;
 }
 </style>
