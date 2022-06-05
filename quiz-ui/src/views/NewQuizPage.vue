@@ -1,11 +1,14 @@
 <template>
-
   <div class="main-container flex-column">
     <h2>Nouvelle partie</h2>
     <p>Saisissez votre nom :</p>
     <div class="input-container">
       <input type="text" placeholder="Username" v-model="username" />
-      <button type="button" class="btn btn-outline-primary btn-grey" @click="launchNewQuiz">
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-grey"
+        @click="launchNewQuiz"
+      >
         GO!
       </button>
     </div>
@@ -13,7 +16,6 @@
 </template>
 
 <script>
-import quizApiService from "@/services/QuizApiService";
 import participationStorageService from "@/services/ParticipationStorageService";
 
 export default {
@@ -57,13 +59,13 @@ export default {
   height: 35px;
 }
 
-.input-container input[type=text] {
+.input-container input[type="text"] {
   padding: 12px 10px;
   box-sizing: border-box;
   color: lightslategray;
 }
 
-.input-container input[type=text]:focus {
+.input-container input[type="text"]:focus {
   outline: none;
 }
 
