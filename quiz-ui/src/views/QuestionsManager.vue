@@ -2,10 +2,7 @@
   <h1>Questions manager</h1>
 
   <h1>Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}</h1>
-  <QuestionDisplay
-    :question="currentQuestion"
-    @answer-selected="answerClickedHandler"
-  />
+  <QuestionDisplay :question="currentQuestion" @answer-selected="answerClickedHandler" />
 </template>
 
 <script>
@@ -47,7 +44,7 @@ export default {
     },
     async endQuiz() {
       participationStorageService.saveAnswers(this.answers);
-      this.$router.push("/results");
+      this.$router.push("/score");
     },
   },
   components: {
@@ -66,11 +63,11 @@ export default {
     this.currentQuestion.questionImage = q.image;
     this.currentQuestion.possibleAnswers = q.possibleAnswers;
   },
-  methods: {
-    launchScore() {
-      this.$router.push("/score");
-    }
-  }
+  // methods: {
+  //   launchScore() {
+  //     this.$router.push("/score");
+  //   }
+  // }
 };
 </script>
 
