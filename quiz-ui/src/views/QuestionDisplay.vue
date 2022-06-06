@@ -1,10 +1,27 @@
 <template>
-  <p>{{ question.questionText }}</p>
-  <p>{{ question.questionTitle }}</p>
-  <img v-if="question.questionImage" :src="question.questionImage" />
-  <a v-for="(possibleAnswers, index) in question.possibleAnswers" @click="$emit('answer-selected', index)">
-    {{ possibleAnswers.text }}
-  </a>
+  <div v-if="display === 'admin'">
+    <p>{{ question.text }}</p>
+    <p>{{ question.title }}</p>
+    <img v-if="question.image" :src="question.image" width="50" />
+    <a
+      v-for="(possibleAnswers, index) in question.possibleAnswers"
+      @click="$emit('answer-selected', index)"
+      style="color: green"
+    >
+      {{ possibleAnswers.text }}
+    </a>
+  </div>
+  <div v-else>
+    <p>{{ question.text }}</p>
+    <p>{{ question.title }}</p>
+    <img v-if="question.image" :src="question.image" />
+    <a
+      v-for="(possibleAnswers, index) in question.possibleAnswers"
+      @click="$emit('answer-selected', index)"
+    >
+      {{ possibleAnswers.text }}
+    </a>
+  </div>
 </template>
 
 <script>
@@ -15,13 +32,12 @@ export default {
     return {};
   },
   props: {
+    display: String,
     question: {
       type: Object,
     },
   },
-
 };
 </script>
 
-<style>
-</style>
+<style></style>

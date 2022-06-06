@@ -35,9 +35,31 @@
   </div>
   <div v-else id="admin" class="main-container flex-column">
     <h1>Administration</h1>
-    <QuestionAdminDisplay v-if="action === 'display'" />
-    <QuestionEdition v-else-if="action === 'edit'" :question="questionToEdit" />
-    <QuestionsList v-else @question-selected="questionClickedHandler" />
+    <button
+      type="button"
+      class="btn btn-outline-primary btn-grey btn-sm"
+      @click="createQuestion"
+    >
+      Créer une question
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-primary btn-grey btn-sm"
+      @click="logout"
+    >
+      Déconnexion
+    </button>
+    <QuestionAdminDisplay
+      v-if="action === 'display'"
+      :question="currentQuestion"
+      @edit-question="editQuestionHandler"
+      @delete-question="deleteQuestionHandler"
+    />
+    <QuestionEdition
+      v-else-if="action === 'edit'"
+      :question="currentQuestion"
+    />
+    <QuestionsList v-else @show-question="showQuestionHandler" />
   </div>
 </template>
 
@@ -60,7 +82,7 @@ export default {
       action: "",
       adminMode: "login",
       password: "",
-      questionToEdit: {
+      currentQuestion: {
         title: "",
         text: "",
         image: "",
@@ -78,7 +100,6 @@ export default {
     } else {
       this.adminMode = "login";
     }
-    this.questionToEdit.text = "Test hey";
   },
   methods: {
     async checkPassword() {
@@ -100,11 +121,31 @@ export default {
         passwordField.setAttribute("type", "password");
       }
     },
-    async questionClickedHandler(position) {
-      console.log("Question n°" + position);
-      var quizApiResult = await quizApiService.getQuestion(position);
+    async createQuestion() {
+      console.log("Create question");
       this.action = "edit";
-      this.questionToEdit = quizApiResult.data;
+    },
+    async showQuestionHandler(position) {
+      console.log("Show question n°" + position);
+      var quizApiResult = await quizApiService.getQuestion(position);
+      this.action = "display";
+      this.currentQuestion = quizApiResult.data;
+    },
+    async editQuestionHandler(position) {
+      console.log("Edit question n°" + position);
+      this.action = "edit";
+    },
+    async deleteQuestionHandler(position) {
+      console.log("Delete question n°" + position);
+      var token = authStorageService.getToken();
+      var quizApiResult = await quizApiService.deleteQuestion(position, token);
+      this.action = "";
+      this.currentQuestion = null;
+      alert("Question n°" + position + " supprimée avec succès.");
+    },
+    logout() {
+      authStorageService.clear();
+      return this.$router.go();
     },
   },
 };

@@ -2,7 +2,11 @@
   <h1>Questions manager</h1>
 
   <h1>Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}</h1>
-  <QuestionDisplay :question="currentQuestion" @answer-selected="answerClickedHandler" />
+  <QuestionDisplay
+    display="quiz"
+    :question="currentQuestion"
+    @answer-selected="answerClickedHandler"
+  />
 </template>
 
 <script>
@@ -17,9 +21,9 @@ export default {
       totalNumberOfQuestions: 0,
       currentQuestionPosition: 1,
       currentQuestion: {
-        questionTitle: "",
-        questionText: "",
-        questionImage: "",
+        title: "",
+        text: "",
+        image: "",
         possibleAnswers: [],
       },
       answers: [],
@@ -29,9 +33,9 @@ export default {
     async loadQuestionByPosition(position) {
       var quizInfoApiResult = await quizApiService.getQuestion(position);
       var q = quizInfoApiResult.data;
-      this.currentQuestion.questionTitle = q.title;
-      this.currentQuestion.questionText = q.text;
-      this.currentQuestion.questionImage = q.image;
+      this.currentQuestion.title = q.title;
+      this.currentQuestion.text = q.text;
+      this.currentQuestion.image = q.image;
       this.currentQuestion.possibleAnswers = q.possibleAnswers;
     },
     async answerClickedHandler(position) {
@@ -54,17 +58,8 @@ export default {
     console.log("Questions manager 'created'");
     var all = await quizApiService.getQuizInfo();
     this.totalNumberOfQuestions = all.data.size;
-    var quizInfoApiResult = await quizApiService.getQuestion(
-      this.currentQuestionPosition
-    );
-    var q = quizInfoApiResult.data;
-    this.currentQuestion.questionTitle = q.title;
-    this.currentQuestion.questionText = q.text;
-    this.currentQuestion.questionImage = q.image;
-    this.currentQuestion.possibleAnswers = q.possibleAnswers;
+    this.loadQuestionByPosition(this.currentQuestionPosition);
   },
-
-
 };
 </script>
 

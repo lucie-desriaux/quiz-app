@@ -16,7 +16,7 @@
       <button
         type="button"
         class="btn btn-outline-primary btn-grey"
-        @click="$emit('question-selected', q.position)"
+        @click="$emit('show-question', q.position)"
       >
         Détails
       </button>
@@ -29,7 +29,7 @@ import quizApiService from "@/services/QuizApiService";
 
 export default {
   name: "QuestionList",
-  emits: ["question-selected"],
+  emits: ["show-question"],
   data() {
     return {
       questions: [{}],
