@@ -1,31 +1,15 @@
 <template>
-  <h1>Page d'administration</h1>
-  <div
-    v-if="adminMode === 'login'"
-    id="login"
-    class="main-container flex-column"
-  >
-    <h1>Connexion compte administrateur</h1>
+  <div v-if="adminMode === 'login'" id="login" class="main-container flex-column">
+    <h2>Connexion compte administrateur</h2>
     <p>Saisissez le mot de passe administrateur :</p>
     <div class="input-container">
-      <input
-        id="password"
-        type="password"
-        placeholder="Mot de passe"
-        v-model="password"
-      />
-      <button
-        type="button"
-        class="btn btn-outline-primary btn-grey btn-sm"
-        @click="switchPasswordVisibility"
-      >
-        👁
-      </button>
-      <button
-        type="button"
-        class="btn btn-outline-primary btn-grey"
-        @click="checkPassword"
-      >
+      <div class="eye-mdp">
+        <input id="password" type="password" placeholder="Mot de passe" v-model="password" />
+        <i class="eye" @click="switchPasswordVisibility">
+          👁
+        </i>
+      </div>
+      <button type="button" class="btn btn-outline-primary btn-grey" @click="checkPassword">
         Connexion
       </button>
     </div>
@@ -33,8 +17,8 @@
       Mot de passe erroné
     </p>
   </div>
-  <div v-else id="admin" class="main-container flex-column">
-    <h1>Administration</h1>
+  <div v-else id="admin" class="flex-column">
+    <!-- <h1>Administration</h1> -->
     <QuestionAdminDisplay v-if="action === 'display'" />
     <QuestionEdition v-else-if="action === 'edit'" :question="questionToEdit" />
     <QuestionsList v-else @question-selected="questionClickedHandler" />
@@ -111,66 +95,21 @@ export default {
 </script>
 
 <style>
-h2 {
-  margin: 0 auto;
+.eye {
+  position: absolute;
+  right: 4%;
+  top: 10%;
 }
 
-h3 {
-  margin-bottom: 5%;
+.eye:hover {
+  cursor: pointer;
 }
 
-.logo {
-  margin-top: 7%;
+.eye-mdp {
+  width: 60%;
 }
 
-.container-left,
-.container-right {
-  width: 50%;
-}
-
-.container-left > * {
-  margin-bottom: 15%;
-}
-
-.container-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.trait {
-  width: 1px;
-  height: 60%;
-  border-radius: 50px;
-  background: rgb(144, 238, 140);
-  background: linear-gradient(
-    180deg,
-    rgba(144, 238, 140, 1) 0%,
-    rgba(227, 235, 55, 1) 17%,
-    rgba(222, 189, 94, 1) 29%,
-    rgba(219, 124, 132, 1) 41%,
-    rgba(211, 147, 235, 1) 57%,
-    rgba(146, 152, 209, 1) 78%,
-    rgba(118, 150, 222, 1) 89%,
-    rgba(125, 227, 230, 1) 100%
-  );
-  filter: blur(0.5px);
-}
-
-.container-right {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.name-score {
-  display: flex;
-  justify-content: space-between;
-  width: 40%;
-}
-
-.score {
-  font-weight: bold;
+.eye-mdp input {
+  width: 100%;
 }
 </style>
