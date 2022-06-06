@@ -25,6 +25,7 @@ export default {
       })
       .catch((error) => {
         console.error(error);
+        return { status: error.response.status };
       });
   },
   getQuizInfo() {
@@ -39,7 +40,7 @@ export default {
   postParticipation(body) {
     return this.call("post", "participations", body);
   },
-  // Partie bonus : authentification
+  // Administration 
   login(body) {
     return this.call("post", "login", body);
   },

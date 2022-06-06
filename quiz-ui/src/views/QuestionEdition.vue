@@ -121,9 +121,9 @@ export default {
       }
       return true;
     },
-    createOrUpdate() {
+    async createOrUpdate() {
       if (this.checkForm()) {
-        console.log("Form ok");
+        console.log("Formulaire valide");
         var token = authStorageService.getToken();
         var answers = "";
         for (let i = 0; i < this.possibleAnswers.length; i++) {
@@ -160,15 +160,38 @@ export default {
           ', "possibleAnswers": [' +
           answers +
           "]}";
-        console.log(body);
         if (this.editMode === "create") {
-          var quizApiResult = quizApiService.postQuestion(body, token);
+          var quizApiResult = await quizApiService.postQuestion(body, token);
         } else {
-          var quizApiResult = quizApiService.putQuestion(body, token);
+          var quizApiResult = await quizApiService.putQuestion(
+            this.question.position,
+            body,
+            token
+          );
         }
-        //this.$router.go();
+        switch (quizApiResult.status) {
+          case 200:
+            alert("Question sauvegardée avec succès !");
+            this.$router.go();
+            break;
+          case 400:
+            alert("Réponses invalides, veuillez vérifier vos saisies.");
+            break;
+          case 403:
+            alert("Position invalide.");
+            break;
+          case 404:
+            alert("Question non trouvée");
+            break;
+          default:
+            alert(
+              "Erreur : veuillez vérifiez vos saisies ou réessayez plus tard."
+            );
+            break;
+        }
       } else {
-        console.log("Form pas ok");
+        console.log("Formulaire invalide");
+        alert("Formulaire invalide, vérifiez vos entrées.");
       }
     },
     cancelEdit() {

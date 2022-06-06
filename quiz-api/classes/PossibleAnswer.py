@@ -22,9 +22,13 @@ def CheckCorrectAnswer(possibleAnswers):
 	s = set([pa.text for pa in possibleAnswers])
 	if len(s) != len(possibleAnswers):
 		return False
+	nbOfCorrectAnswers = 0
 	for pa in possibleAnswers:
 		if pa.isCorrect == 1:
-			return True
+			nbOfCorrectAnswers+=1
+	if nbOfCorrectAnswers != 1:
+		return False
+	return True
 		
 
 def CreatePossibleAnswers(questionId, possibleAnswers):

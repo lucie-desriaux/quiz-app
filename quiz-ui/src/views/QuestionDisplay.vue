@@ -1,26 +1,56 @@
 <template>
-  <div class="container-all-question">
-    <div class="question-entete">
-      <p class="question-sub-title">{{ question.title }}</p>
-      <h3 class="question-libelle">{{ question.text }}</h3>
-    </div>
-
-    <div class="container-reponses d-flex">
-      <div class="cont-img-question">
-        <img
-          class="img-questions"
-          v-if="question.image"
-          :src="question.image"
-        />
+  <div v-if="display === 'admin'">
+    <p>là c'est admin</p>
+    <div class="container-all-question">
+      <div class="question-entete">
+        <p class="question-sub-title">{{ question.title }}</p>
+        <h3 class="question-libelle">{{ question.text }}</h3>
       </div>
-      <div class="reponses d-flex flex-column">
-        <a
-          class="reponse"
-          v-for="(possibleAnswers, index) in question.possibleAnswers"
-          @click="$emit('answer-selected', index)"
-        >
-          <div mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
-        </a>
+
+      <div class="container-reponses d-flex">
+        <div class="cont-img-question">
+          <img
+            class="img-questions"
+            v-if="question.image"
+            :src="question.image"
+          />
+        </div>
+        <div class="reponses d-flex flex-column">
+          <a
+            class="reponse"
+            v-for="(possibleAnswers, index) in question.possibleAnswers"
+            @click="$emit('answer-selected', index)"
+          >
+            <div mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-else>
+    <div class="container-all-question">
+      <div class="question-entete">
+        <p class="question-sub-title">{{ question.title }}</p>
+        <h3 class="question-libelle">{{ question.text }}</h3>
+      </div>
+
+      <div class="container-reponses d-flex">
+        <div class="cont-img-question">
+          <img
+            class="img-questions"
+            v-if="question.image"
+            :src="question.image"
+          />
+        </div>
+        <div class="reponses d-flex flex-column">
+          <a
+            class="reponse"
+            v-for="(possibleAnswers, index) in question.possibleAnswers"
+            @click="$emit('answer-selected', index)"
+          >
+            <div mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -34,6 +64,7 @@ export default {
     return {};
   },
   props: {
+    display: String,
     question: {
       type: Object,
     },
