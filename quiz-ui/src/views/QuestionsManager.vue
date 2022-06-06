@@ -1,12 +1,13 @@
 <template>
-  <h1>Questions manager</h1>
-
-  <h1>Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}</h1>
-  <QuestionDisplay
-    display="quiz"
-    :question="currentQuestion"
-    @answer-selected="answerClickedHandler"
-  />
+  <div class="container-display-question">
+    <h1 class="question-title">
+      Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}
+    </h1>
+    <QuestionDisplay
+      :question="currentQuestion"
+      @answer-selected="answerClickedHandler"
+    />
+  </div>
 </template>
 
 <script>
@@ -63,4 +64,25 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.container-display-question {
+  width: 60%;
+  max-height: 70%;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -45%);
+  /* border: black solid; */
+  height: 60%;
+}
+
+.question-title {
+  font-size: 2.5vw;
+  width: 100%;
+  /* height: 10%; */
+  text-align: center;
+  margin: 0;
+}
+</style>

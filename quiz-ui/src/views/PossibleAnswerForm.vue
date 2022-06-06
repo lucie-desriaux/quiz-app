@@ -22,13 +22,8 @@ export default {
     return {};
   },
   async created() {
-    if (this.possibleAnswer === null || this.possibleAnswer == ) {
+    if (this.possibleAnswer === null) {
       console.log("yes");
-
-      this.possibleAnswer = {
-        text: "",
-        isCorrect: false,
-      };
     }
   },
 };

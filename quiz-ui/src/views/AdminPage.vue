@@ -32,14 +32,29 @@
     <h1>Administration</h1>
     <button
       type="button"
-      class="btn btn-outline-primary btn-grey btn-sm"
+      class="btn btn-outline-primary btn-grey btn-sm creer-question"
       @click="createQuestion"
     >
       Créer une question
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-plus-square"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"
+        />
+        <path
+          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+        />
+      </svg>
     </button>
     <button
       type="button"
-      class="btn btn-outline-primary btn-grey btn-sm"
+      class="btn btn-outline-primary btn-grey btn-sm deconnexion"
       @click="logout"
     >
       Déconnexion
@@ -167,5 +182,45 @@ export default {
 
 .eye-mdp input {
   width: 100%;
+}
+
+.deconnexion {
+  position: absolute;
+  right: 2%;
+  top: -1%;
+  width: 8%;
+}
+
+.creer-question:hover {
+  background-color: white;
+  color: lightcoral;
+}
+
+#admin h1 {
+  text-align: center;
+  margin-top: 4%;
+}
+
+.creer-question {
+  background-color: lightcoral;
+  color: white;
+  position: fixed;
+  bottom: 4%;
+  right: 3%;
+  z-index: 5;
+  height: 45px;
+  padding-right: 2%;
+  font-size: 16px;
+}
+
+.creer-question:focus {
+  outline: none !important;
+}
+
+.bi-plus-square {
+  position: absolute;
+  right: 8%;
+  top: 31%;
+  /* left: 2%; */
 }
 </style>
