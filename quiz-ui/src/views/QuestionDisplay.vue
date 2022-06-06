@@ -6,7 +6,6 @@
         <p class="question-sub-title">{{ question.title }}</p>
         <h3 class="question-libelle">{{ question.text }}</h3>
       </div>
-
       <div class="container-reponses d-flex">
         <div class="cont-img-question">
           <img
@@ -107,7 +106,7 @@ export default {
 }
 
 .reponses {
-  font-size: 1vw;
+  font-size: 14px;
 
   text-align: start;
   justify-content: center;
