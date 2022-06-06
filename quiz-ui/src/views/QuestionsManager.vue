@@ -1,12 +1,8 @@
 <template>
-  <h1>Questions manager</h1>
-
-  <h1>Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}</h1>
-  <QuestionDisplay
-    display="quiz"
-    :question="currentQuestion"
-    @answer-selected="answerClickedHandler"
-  />
+  <div class="main-container flex-column">
+    <h1>Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}</h1>
+    <QuestionDisplay :question="currentQuestion" @answer-selected="answerClickedHandler" />
+  </div>
 </template>
 
 <script>
@@ -21,9 +17,9 @@ export default {
       totalNumberOfQuestions: 0,
       currentQuestionPosition: 1,
       currentQuestion: {
-        title: "",
-        text: "",
-        image: "",
+        questionTitle: "",
+        questionText: "",
+        questionImage: "",
         possibleAnswers: [],
       },
       answers: [],
@@ -33,9 +29,9 @@ export default {
     async loadQuestionByPosition(position) {
       var quizInfoApiResult = await quizApiService.getQuestion(position);
       var q = quizInfoApiResult.data;
-      this.currentQuestion.title = q.title;
-      this.currentQuestion.text = q.text;
-      this.currentQuestion.image = q.image;
+      this.currentQuestion.questionTitle = q.title;
+      this.currentQuestion.questionText = q.text;
+      this.currentQuestion.questionImage = q.image;
       this.currentQuestion.possibleAnswers = q.possibleAnswers;
     },
     async answerClickedHandler(position) {
@@ -48,7 +44,7 @@ export default {
     },
     async endQuiz() {
       participationStorageService.saveAnswers(this.answers);
-      this.$router.push("/score");
+      this.$router.push("/results");
     },
   },
   components: {
@@ -58,9 +54,22 @@ export default {
     console.log("Questions manager 'created'");
     var all = await quizApiService.getQuizInfo();
     this.totalNumberOfQuestions = all.data.size;
-    this.loadQuestionByPosition(this.currentQuestionPosition);
+    var quizInfoApiResult = await quizApiService.getQuestion(
+      this.currentQuestionPosition
+    );
+    var q = quizInfoApiResult.data;
+    this.currentQuestion.questionTitle = q.title;
+    this.currentQuestion.questionText = q.text;
+    this.currentQuestion.questionImage = q.image;
+    this.currentQuestion.possibleAnswers = q.possibleAnswers;
   },
+  methods: {
+    launchScore() {
+      this.$router.push("/score");
+    }
+  }
 };
 </script>
 
-<style></style>
+<style>
+</style>
