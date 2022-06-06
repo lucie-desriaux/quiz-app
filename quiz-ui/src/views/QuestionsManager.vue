@@ -4,6 +4,7 @@
       Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}
     </h1>
     <QuestionDisplay
+      display="quiz"
       :question="currentQuestion"
       @answer-selected="answerClickedHandler"
     />

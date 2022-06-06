@@ -2,7 +2,6 @@
   <div class="m-5">
     <h3 class="text-center m-0">Consultation de toutes les questions</h3>
     <div class="container-questions-libelle">
-      <!-- <h3 class="text-center">Toutes les questions</h3> -->
       <button
         type="button"
         class="btn btn-outline-primary btn-grey btn-sm creer-question"
@@ -49,9 +48,6 @@
             />
           </svg>
         </a>
-        <!-- <button type="button" class="" @click="$emit('show-question', q.position)">
-          Détails
-        </button> -->
       </div>
     </div>
   </div>

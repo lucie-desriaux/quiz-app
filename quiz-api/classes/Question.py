@@ -11,13 +11,13 @@ class Question:
         self.position = position
         self.possibleAnswers = possibleAnswers
 
-def JsonToObject(json):
+def JsonToObject(body):
     return Question(
-        json['title'],
-        json['text'],
-        json['image'],
-        json['position'],
-        PossibleAnswer.JsonToObject(json['possibleAnswers'])
+        body['title'],
+        body['text'],
+        body['image'],
+        body['position'],
+        PossibleAnswer.JsonToObject(body['possibleAnswers'])
     )
 
 class PossibleAnswerEncoder(json.JSONEncoder):
@@ -88,9 +88,13 @@ def GetQuestionId(position):
     res = db_utils.callDb_oneResult(request)
     return res[0] if res != None else ''
 
-def AddQuestion(json):
+def AddQuestion(body):
+    # Check if question is valid
+    if not "title" in body or not "text" in body or not "image" in body or not "position" in body or not "possibleAnswers" in body:
+        return '', 400 
+
     # Check if possible answers are correct
-    question = JsonToObject(json)
+    question = JsonToObject(body)
     if not CheckCorrectAnswer(question.possibleAnswers):
         return '', 400
 

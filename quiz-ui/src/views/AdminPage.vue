@@ -138,7 +138,21 @@ export default {
       var quizApiResult = await quizApiService.deleteQuestion(position, token);
       this.action = "";
       this.currentQuestion = null;
-      alert("Question n°" + position + " supprimée avec succès.");
+      switch (quizApiResult.status) {
+        case 204:
+          alert("Question supprimée avec succès !");
+          break;
+        case 404:
+          alert("Question non trouvée, suppression annulée.");
+          break;
+        case 401:
+          alert("Reconnectez-vous.");
+          break;
+        default:
+          alert("Erreur lors de la suppression, réessayez plus tard.");
+          break;
+      }
+      this.$router.go();
     },
     logout() {
       authStorageService.clear();
