@@ -53,6 +53,7 @@
     <QuestionEdition
       v-else-if="action === 'edit'"
       :question="currentQuestion"
+      :editMode="editMode"
     />
     <QuestionsList v-else @show-question="showQuestionHandler" />
   </div>
@@ -74,6 +75,7 @@ export default {
   },
   data() {
     return {
+      editMode: "create",
       action: "",
       adminMode: "login",
       password: "",
@@ -119,6 +121,7 @@ export default {
     async createQuestion() {
       console.log("Create question");
       this.action = "edit";
+      this.editMode = "create";
     },
     async showQuestionHandler(position) {
       console.log("Show question n°" + position);
@@ -129,6 +132,7 @@ export default {
     async editQuestionHandler(position) {
       console.log("Edit question n°" + position);
       this.action = "edit";
+      this.editMode = "update";
     },
     async deleteQuestionHandler(position) {
       console.log("Delete question n°" + position);

@@ -42,6 +42,8 @@
 <script>
 import ImageUpload from "@/views/ImageUpload.vue";
 import PossibleAnswerForm from "@/views/PossibleAnswerForm.vue";
+import quizApiService from "@/services/QuizApiService";
+import authStorageService from "@/services/AuthStorageService";
 
 export default {
   name: "QuestionEdition",
@@ -76,6 +78,7 @@ export default {
     };
   },
   props: {
+    editMode: String,
     question: {
       type: Object,
     },
@@ -114,6 +117,49 @@ export default {
     createOrUpdate() {
       if (this.checkForm()) {
         console.log("Form ok");
+        var token = authStorageService.getToken();
+        var answers = "";
+        for (let i = 0; i < this.possibleAnswers.length; i++) {
+          if (
+            this.possibleAnswers[i].text != null &&
+            this.possibleAnswers[i].text.trim() != ""
+          ) {
+            if (answers === "") {
+              answers +=
+                '{"text":"' +
+                this.possibleAnswers[i].text +
+                '","isCorrect":' +
+                this.possibleAnswers[i].isCorrect +
+                "}";
+            } else {
+              answers +=
+                ',{"text":"' +
+                this.possibleAnswers[i].text +
+                '","isCorrect":' +
+                this.possibleAnswers[i].isCorrect +
+                "}";
+            }
+          }
+        }
+        var body =
+          '{"text":"' +
+          this.text +
+          '","title":"' +
+          this.title +
+          '", "image":"' +
+          this.image +
+          '", "position":' +
+          this.position +
+          ', "possibleAnswers": [' +
+          answers +
+          "]}";
+        console.log(body);
+        if (this.editMode === "create") {
+          var quizApiResult = quizApiService.postQuestion(body, token);
+        } else {
+          var quizApiResult = quizApiService.putQuestion(body, token);
+        }
+        this.$router.go();
       } else {
         console.log("Form pas ok");
       }
@@ -127,6 +173,13 @@ export default {
   },
   async created() {
     console.log("Composant Question Edition page 'created'");
+    if (this.editMode === "update") {
+      this.title = this.question.title;
+      this.text = this.question.text;
+      this.position = this.question.position;
+      this.image = this.question.image;
+      this.possibleAnswers = this.question.possibleAnswers;
+    }
   },
 };
 </script>

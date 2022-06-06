@@ -21,6 +21,16 @@ export default {
   data() {
     return {};
   },
+  async created() {
+    if (this.possibleAnswer === null || this.possibleAnswer == ) {
+      console.log("yes");
+
+      this.possibleAnswer = {
+        text: "",
+        isCorrect: false,
+      };
+    }
+  },
 };
 </script>
 
