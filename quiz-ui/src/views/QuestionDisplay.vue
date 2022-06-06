@@ -7,18 +7,11 @@
 
     <div class="container-reponses d-flex">
       <div class="cont-img-question">
-        <img
-          class="img-questions"
-          v-if="question.image"
-          :src="question.image"
-        />
+        <img class="img-questions" v-if="question.image" :src="question.image" />
       </div>
       <div class="reponses d-flex flex-column">
-        <a
-          class="reponse"
-          v-for="(possibleAnswers, index) in question.possibleAnswers"
-          @click="$emit('answer-selected', index)"
-        >
+        <a class="reponse" v-for="(possibleAnswers, index) in question.possibleAnswers"
+          @click="$emit('answer-selected', index)">
           <div mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
         </a>
       </div>
@@ -76,7 +69,7 @@ export default {
 }
 
 .reponses {
-  font-size: 1vw;
+  font-size: 14px;
 
   text-align: start;
   justify-content: center;
