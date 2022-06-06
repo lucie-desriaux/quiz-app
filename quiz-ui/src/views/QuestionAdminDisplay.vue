@@ -14,6 +14,13 @@
   >
     Supprimer
   </button>
+  <button
+    type="button"
+    class="btn btn-outline-primary btn-grey"
+    @click="backToList"
+  >
+    Retour à la liste des questions
+  </button>
   <QuestionDisplay display="admin" :question="question" @answer-selected="" />
 </template>
 
@@ -34,6 +41,11 @@ export default {
   },
   async created() {
     console.log("Composant Question Admin Display page 'created'");
+  },
+  methods: {
+    backToList() {
+      return this.$router.go();
+    },
   },
 };
 </script>

@@ -36,6 +36,13 @@
         Annuler
       </button>
     </div>
+    <button
+      type="button"
+      class="btn btn-outline-primary btn-grey"
+      @click="backToList"
+    >
+      Retour à la liste des questions
+    </button>
   </div>
 </template>
 
@@ -159,7 +166,7 @@ export default {
         } else {
           var quizApiResult = quizApiService.putQuestion(body, token);
         }
-        this.$router.go();
+        //this.$router.go();
       } else {
         console.log("Form pas ok");
       }
@@ -169,6 +176,9 @@ export default {
     },
     imageFileChangedHandler(b64String) {
       this.image = b64String;
+    },
+    backToList() {
+      return this.$router.go();
     },
   },
   async created() {

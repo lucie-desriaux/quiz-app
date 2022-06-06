@@ -4,7 +4,12 @@
     <p>Saisissez votre nom :</p>
     <div class="input-container">
       <input type="text" placeholder="Username" v-model="username" />
-      <button type="button" class="btn btn-outline-primary btn-grey" @click="launchNewQuiz">
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-grey"
+        @click="launchNewQuiz"
+        :disabled="username === null || username.trim() === ''"
+      >
         GO!
       </button>
     </div>
