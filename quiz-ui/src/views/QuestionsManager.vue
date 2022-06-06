@@ -1,6 +1,6 @@
 <template>
-  <div class="main-container flex-column">
-    <h1>Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}</h1>
+  <div class="container-display-question">
+    <h1 class="question-title">Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}</h1>
     <QuestionDisplay :question="currentQuestion" @answer-selected="answerClickedHandler" />
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
     },
     async endQuiz() {
       participationStorageService.saveAnswers(this.answers);
-      this.$router.push("/results");
+      this.$router.push("/score");
     },
   },
   components: {
@@ -62,14 +62,29 @@ export default {
     this.currentQuestion.questionText = q.text;
     this.currentQuestion.questionImage = q.image;
     this.currentQuestion.possibleAnswers = q.possibleAnswers;
-  },
-  methods: {
-    launchScore() {
-      this.$router.push("/score");
-    }
   }
 };
 </script>
 
 <style>
+.container-display-question {
+  width: 60%;
+  max-height: 70%;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -45%);
+  /* border: black solid; */
+  height: 60%;
+}
+
+.question-title {
+  font-size: 2.5vw;
+  width: 100%;
+  /* height: 10%; */
+  text-align: center;
+  margin: 0;
+}
 </style>

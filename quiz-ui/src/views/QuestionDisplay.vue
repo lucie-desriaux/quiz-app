@@ -1,15 +1,22 @@
 <template>
-  <h3 class="question">{{ question.questionText }}</h3>
-  <p>{{ question.questionTitle }}</p>
+  <div class="container-all-question">
+    <div class="question-entete">
+      <p class="question-sub-title">{{ question.questionTitle }}</p>
+      <h3 class="question-libelle">{{ question.questionText }}</h3>
+    </div>
 
-  <div class="container-reponses d-flex">
-    <img class="img-questions" v-if="question.questionImage" :src="question.questionImage" />
-    <div class="reponses d-flex flex-column ">
-      <a v-for="(possibleAnswers, index) in question.possibleAnswers" @click="$emit('answer-selected', index)">
-        <div mt-3>
-          {{ possibleAnswers.text }}
-        </div>
-      </a>
+    <div class="container-reponses d-flex">
+      <div class="cont-img-question">
+        <img class="img-questions" v-if="question.questionImage" :src="question.questionImage" />
+      </div>
+      <div class="reponses d-flex flex-column ">
+        <a class="reponse" v-for="(possibleAnswers, index) in question.possibleAnswers"
+          @click="$emit('answer-selected', index)">
+          <div mt-3>
+            {{ index + 1 }}. {{ possibleAnswers.text }}
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -27,31 +34,75 @@ export default {
       type: Object,
     },
   },
-  methods: {
-    getQuestion() {
-      //this.$emit('answer-selected', 2);
-    },
-  },
 };
 </script>
 
 <style>
+.container-all-question {
+  /* border: purple solid; */
+  height: 90%;
+  width: 100%;
+}
+
 .img-questions {
-  width: 60%;
+  width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  /* box-shadow: 10px 5px 5px lightgrey; */
+}
+
+.question-entete {
+  /* border: green solid; */
+  /* height: 30%; */
+}
+
+.cont-img-question {
+  display: flex;
+  width: 45%;
+  /* height: 100%; */
+  /* border: purple solid; */
 }
 
 .container-reponses {
   justify-content: space-between;
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
+  /* border: red solid; */
+  height: 70%;
 }
 
 .reponses {
+  font-size: 1vw;
+
   text-align: start;
   justify-content: center;
+  /* border: grey solid; */
+  width: 50%;
 }
 
-.question {
-  margin-bottom: 4%;
+.reponse {
+  margin: 1%;
+  color: black;
+  cursor: pointer;
+}
+
+.reponse:hover {
+  background-color: transparent;
+  color: rgba(118, 150, 222, 1);
+  font-size: 1.1vw;
+}
+
+.question-libelle {
+  margin-bottom: 3%;
+  text-align: center;
+  font-size: 1.5vw;
+}
+
+.question-sub-title {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.2vw;
+  margin-bottom: 1%;
+  /* margin-top: -1%; */
 }
 </style>
