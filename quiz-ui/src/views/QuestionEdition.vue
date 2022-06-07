@@ -28,7 +28,7 @@
       <div class="container-bonne-rep">Bonne réponse</div>
       <div class="container-img-reponses">
         <div class="rep-edit">
-          <div v-for="index in 4" :key="index">
+          <div v-for="index in possibleAnswers.length" :key="index">
             <PossibleAnswerForm
               :index="index - 1"
               :possibleAnswer="possibleAnswers[index - 1]"

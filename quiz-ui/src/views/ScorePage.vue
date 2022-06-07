@@ -83,14 +83,16 @@ export default {
     var quizInfoApiResult = await quizApiService.getQuizInfo();
     var quizInfo = quizInfoApiResult.data.scores;
     this.registeredScores = quizInfo;
+    var lastSubmitDate = "1970-01-01";
     for (let i = 0; i < this.registeredScores.length; i++) {
       if (
         this.registeredScores[i].playerName == this.playerName &&
         this.registeredScores[i].score == this.score
       ) {
-        this.classement = i + 1;
-        console.log("oui");
-        break;
+        if (lastSubmitDate < this.registeredScores[i].date) {
+          this.classement = i + 1;
+          break;
+        }
       }
     }
   },
