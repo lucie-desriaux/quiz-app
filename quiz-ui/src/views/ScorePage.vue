@@ -1,10 +1,10 @@
 <template>
   <div class="main-container main-container-score flex-column">
     <div class="container-congrats d-flex">
-      <img class="gif" src="../assets/images/stitch-sad.gif" />
+      <img class="gif" src="../assets/images/donald-good.gif" />
       <div>
         <h2>Votre score est de {{ score }} points</h2>
-        <p>Bien joué {{ playerName }}, vous avez fini le quiz !</p>
+        <p>{{ texte }}</p>
         <p>
           Vous êtes {{ classement }} / {{ registeredScores.length }} au
           classement général.
@@ -65,7 +65,9 @@ export default {
       registeredScores: [],
       playerName: "",
       score: 0,
+      texte: "",
       classement: 0,
+      gif: "",
     };
   },
   async created() {
@@ -83,6 +85,25 @@ export default {
     var quizInfoApiResult = await quizApiService.getQuizInfo();
     var quizInfo = quizInfoApiResult.data.scores;
     this.registeredScores = quizInfo;
+    // TODO GIF
+    if (this.score == 10) {
+      this.texte =
+        "Félicitations " + playerName + "! Tu es un vrai fan Disney !";
+      // this.gif = "./assets/images/olaf-frozen.gif";
+    } else if (this.score >= 8 && this.score < 10) {
+      this.texte = "C'est un presque parfait " + playerName + "! Bravo !";
+    } else if (this.score >= 5 && this.score < 8) {
+      this.texte =
+        "C'est pas mal " + playerName + ", mais tu peux mieux faire !";
+    } else if (this.score >= 1 && this.score < 5) {
+      this.texte =
+        "Retourne réviser tes classiques " +
+        playerName +
+        ", et reviens jouer !";
+    } else {
+      this.texte = "Tu es nul " + playerName + "...";
+    }
+
     var lastSubmitDate = "1970-01-01";
     for (let i = 0; i < this.registeredScores.length; i++) {
       if (

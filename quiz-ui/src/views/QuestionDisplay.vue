@@ -11,10 +11,12 @@
           <img class="img-questions" v-if="question.image" :src="question.image" />
         </div>
         <div class="reponses d-flex flex-column">
-          <a class="reponse" v-for="(possibleAnswers, index) in question.possibleAnswers"
+          <p class="reponse-admin" v-for="(possibleAnswers, index) in question.possibleAnswers"
             @click="$emit('answer-selected', index)">
-            <div mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
-          </a>
+          <div class="good-answer" v-if="possibleAnswers.isCorrect == 1">{{ index + 1 }}. {{ possibleAnswers.text }}
+          </div>
+          <div v-else mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
+          </p>
         </div>
       </div>
     </div>
@@ -110,7 +112,7 @@ export default {
 .reponse:hover {
   background-color: transparent;
   color: rgba(118, 150, 222, 1);
-  font-size: 1.1vw;
+  /* font-size: 1.1vw; */
 }
 
 .question-libelle {
@@ -125,5 +127,16 @@ export default {
   font-size: 1.2vw;
   margin-bottom: 1%;
   /* margin-top: -1%; */
+}
+
+.good-answer {
+  background-color: rgba(118, 150, 222, 0.2);
+  cursor: default;
+}
+
+.reponse-admin {
+  margin: 1%;
+  font-size: 20px;
+  color: black;
 }
 </style>
