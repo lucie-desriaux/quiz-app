@@ -3,11 +3,7 @@
     <h1 class="question-title">
       Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}
     </h1>
-    <QuestionDisplay
-      display="quiz"
-      :question="currentQuestion"
-      @answer-selected="answerClickedHandler"
-    />
+    <QuestionDisplay display="quiz" :question="currentQuestion" @answer-selected="answerClickedHandler" />
   </div>
 </template>
 
@@ -74,14 +70,12 @@ export default {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -45%);
-  /* border: black solid; */
   height: 60%;
 }
 
 .question-title {
   font-size: 2.5vw;
   width: 100%;
-  /* height: 10%; */
   text-align: center;
   margin: 0;
 }

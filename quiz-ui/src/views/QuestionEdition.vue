@@ -4,13 +4,7 @@
     <div class="">
       <div class="en-tete">
         <div>
-          <input
-            id="position"
-            type="number"
-            min="1"
-            placeholder="1"
-            v-model="position"
-          />
+          <input id="position" type="number" min="1" placeholder="1" v-model="position" />
         </div>
         <div>
           <input id="title" type="text" placeholder="Titre" v-model="title" />
@@ -29,27 +23,16 @@
       <div class="container-img-reponses">
         <div class="rep-edit">
           <div v-for="index in possibleAnswers.length" :key="index">
-            <PossibleAnswerForm
-              :index="index - 1"
-              :possibleAnswer="possibleAnswers[index - 1]"
-            />
+            <PossibleAnswerForm :index="index - 1" :possibleAnswer="possibleAnswers[index - 1]" />
           </div>
         </div>
       </div>
     </div>
     <div class="btn-container">
-      <button
-        type="button"
-        class="btn btn-outline-primary btn-grey"
-        @click="createOrUpdate"
-      >
+      <button type="button" class="btn btn-outline-primary btn-grey" @click="createOrUpdate">
         Sauvegarder
       </button>
-      <button
-        type="button"
-        class="btn btn-outline-primary btn-grey"
-        @click="cancelEdit"
-      >
+      <button type="button" class="btn btn-outline-primary btn-grey" @click="cancelEdit">
         Annuler
       </button>
     </div>
@@ -265,7 +248,6 @@ export default {
 }
 
 .img-edit {
-  /* border: lightgrey solid 1px; */
   display: flex;
   flex-direction: column;
 }
@@ -306,6 +288,5 @@ div #text {
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
-  /* margin-top: 1%; */
 }
 </style>
