@@ -160,7 +160,7 @@ def UpdateQuestion(position, body):
     # Check if question exists
     questionId = GetQuestionId(position)
     if not questionId:
-        return 404
+        return '', 404
 
     question = JsonToObject(body)
 
