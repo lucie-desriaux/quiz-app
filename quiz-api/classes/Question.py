@@ -183,7 +183,7 @@ def UpdateQuestion(position, body):
     request = f"DELETE FROM PossibleAnswer WHERE questionId = {questionId}"
     db_utils.callDb_oneResult(request)
     CreatePossibleAnswers(questionId, question.possibleAnswers)
-    return 200
+    return '', 200
 
 def GetRightAnswers():
     result = []
