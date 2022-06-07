@@ -122,6 +122,8 @@ export default {
       return true;
     },
     async createOrUpdate() {
+      // var token = authStorageService.getToken();
+      // this.checkToken(token);
       if (this.checkForm()) {
         console.log("Formulaire valide");
         var token = authStorageService.getToken();
@@ -182,6 +184,16 @@ export default {
             break;
           case 404:
             alert("Question non trouvée");
+            break;
+          case 401:
+            alert("Reconnectez-vous.");
+            authStorageService.clear();
+            this.$router.go();
+            break;
+          case 500:
+            alert("Reconnectez-vous.");
+            authStorageService.clear();
+            this.$router.go();
             break;
           default:
             alert(

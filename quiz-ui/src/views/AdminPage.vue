@@ -89,7 +89,7 @@ export default {
   async created() {
     console.log("Composant Admin page 'created'");
     var token = authStorageService.getToken();
-    //check token is ok TODO
+    // Check token is ok TODO
     if (token) {
       this.adminMode = "admin";
     } else {
@@ -147,8 +147,16 @@ export default {
           break;
         case 401:
           alert("Reconnectez-vous.");
+          authStorageService.clear();
+          this.$router.go();
+          break;
+        case 500:
+          alert("Reconnectez-vous.");
+          authStorageService.clear();
+          this.$router.go();
           break;
         default:
+          console.log(quizApiResult.error);
           alert("Erreur lors de la suppression, réessayez plus tard.");
           break;
       }

@@ -25,7 +25,7 @@ export default {
       })
       .catch((error) => {
         console.error(error);
-        return { status: error.response.status };
+        return { status: error.response.status, error: error.response };
       });
   },
   getQuizInfo() {
