@@ -84,18 +84,20 @@ export default {
     this.score = participationStorageService.getParticipationScore();
     var quizInfoApiResult = await quizApiService.getQuizInfo();
     var quizInfo = quizInfoApiResult.data.scores;
+    var quizInfoApiResult = await quizApiService.getQuestions();
+    var nbQuestions = quizInfoApiResult.data.length;
     this.registeredScores = quizInfo;
     // TODO GIF
-    if (this.score == 10) {
+    if (this.score == this.nbQuestions) {
       this.texte =
         "Félicitations " + playerName + "! Tu es un vrai fan Disney !";
       // this.gif = "./assets/images/olaf-frozen.gif";
-    } else if (this.score >= 8 && this.score < 10) {
+    } else if (this.score >= Math.round((4*nbQuestions)/5) && this.score < nbQuestions) {
       this.texte = "C'est un presque parfait " + playerName + "! Bravo !";
-    } else if (this.score >= 5 && this.score < 8) {
+    } else if (this.score >= Math.round(nbQuestions/2) && this.score < Math.round((4*nbQuestions)/5) ) {
       this.texte =
         "C'est pas mal " + playerName + ", mais tu peux mieux faire !";
-    } else if (this.score >= 1 && this.score < 5) {
+    } else if (this.score >= 1 && this.score < Math.round(nbQuestions/2)) {
       this.texte =
         "Retourne réviser tes classiques " +
         playerName +
