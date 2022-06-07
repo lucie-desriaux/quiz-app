@@ -236,11 +236,9 @@ export default {
 }
 
 .container-bonne-rep {
-  width: 95%;
-  margin: 0 auto;
-  justify-content: space-around;
   margin-top: 2%;
   margin-left: 75%;
+  display: inline-block;
 }
 
 .img-edit {
