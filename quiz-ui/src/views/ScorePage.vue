@@ -82,7 +82,7 @@ export default {
     }
     this.score = participationStorageService.getParticipationScore();
     var questionList = await quizApiService.getQuestions();
-    var nbQuestions = quizInfoApiResult.data.length;
+    var nbQuestions = questionList.data.length;
     if (this.score == nbQuestions) {
       this.text =
         "Félicitations " + playerName + "! Tu es un vrai fan Disney !";
