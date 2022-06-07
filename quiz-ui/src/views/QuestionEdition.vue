@@ -19,6 +19,11 @@
         <div class="img-edit">
           <ImageUpload @file-change="imageFileChangedHandler" />
         </div>
+      </div>
+      <div class="container-bonne-rep">
+            Bonne réponse
+      </div>
+      <div class="container-img-reponses">    
         <div class="rep-edit">
           <div v-for="index in 4" :key="index">
             <PossibleAnswerForm :index="index - 1" :possibleAnswer="possibleAnswers[index - 1]" />
@@ -228,6 +233,12 @@ export default {
   margin: 0 auto;
   justify-content: space-around;
   margin-top: 2%;
+}
+
+.container-bonne-rep {
+  margin-top: 2%;
+  margin-left: 75%;
+  display: inline-block;
 }
 
 .img-edit {

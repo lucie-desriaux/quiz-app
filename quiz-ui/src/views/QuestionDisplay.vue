@@ -92,7 +92,7 @@ export default {
 }
 
 .reponses {
-  font-size: 14px;
+  font-size: 20px;
 
   text-align: start;
   justify-content: center;
@@ -102,6 +102,7 @@ export default {
 
 .reponse {
   margin: 1%;
+  font-size: 20px;
   color: black;
   cursor: pointer;
 }
