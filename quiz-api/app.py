@@ -56,7 +56,7 @@ def UpdateQuestionByPosition(position):
 	if token is None or decode_token(token.removeprefix("Bearer ")) != ADMIN:
 		return '', 401
 	payload = request.get_json()
-	return '', UpdateQuestion(position, payload)
+	return UpdateQuestion(position, payload)
 
 @app.route('/participations', methods=['DELETE'])
 def DeleteAllParticipations():
