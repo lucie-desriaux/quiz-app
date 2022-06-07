@@ -1,7 +1,16 @@
 <template>
   <div>
-    <input type="text" placeholder="Réponse possible" v-model="possibleAnswer.text" />
-    <input class="form-check-input" type="checkbox" id="isCorrect" v-model="possibleAnswer.isCorrect" />
+    <input
+      type="text"
+      placeholder="Réponse possible"
+      v-model="possibleAnswer.text"
+    />
+    <input
+      class="form-check-input"
+      type="checkbox"
+      id="isCorrect"
+      v-model="possibleAnswer.isCorrect"
+    />
   </div>
 </template>
 
@@ -16,11 +25,6 @@ export default {
   },
   data() {
     return {};
-  },
-  async created() {
-    if (this.possibleAnswer === null) {
-      console.log("yes");
-    }
   },
 };
 </script>

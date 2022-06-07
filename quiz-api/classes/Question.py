@@ -127,7 +127,7 @@ def GetQuestion(position):
     return DbObjectToJson(question, paList), 200
 
 def GetAllQuestions():
-    request = f"SELECT * FROM Question"
+    request = f"SELECT * FROM Question ORDER BY position"
     questions = db_utils.callDb_multipleResults(request)
     res = []
     for q in questions:

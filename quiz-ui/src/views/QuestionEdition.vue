@@ -132,8 +132,6 @@ export default {
       return true;
     },
     async createOrUpdate() {
-      // var token = authStorageService.getToken();
-      // this.checkToken(token);
       if (this.checkForm()) {
         console.log("Formulaire valide");
         var token = authStorageService.getToken();
