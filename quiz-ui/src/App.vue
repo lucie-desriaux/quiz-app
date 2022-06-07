@@ -6,13 +6,7 @@ import { RouterLink, RouterView } from "vue-router";
   <header>
     <nav class="nav">
       <div>
-        <img
-          alt="Vue logo"
-          class="logo"
-          src="@/assets/images/logo2.png"
-          width=""
-          height="30"
-        />
+        <img alt="Vue logo" class="logo" src="@/assets/images/logo2.png" width="" height="30" />
       </div>
       <div>
         <RouterLink to="/">Home</RouterLink>

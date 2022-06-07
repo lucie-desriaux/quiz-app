@@ -15,8 +15,8 @@
         </div>
         <div v-else mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
         </p>
-      </div>        
-      <div  v-else class="reponses d-flex flex-column">
+      </div>
+      <div v-else class="reponses d-flex flex-column">
         <a class="reponse" v-for="(possibleAnswers, index) in question.possibleAnswers"
           @click="$emit('answer-selected', index)">
           <div mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -45,7 +45,6 @@ export default {
 
 <style>
 .container-all-question {
-  /* border: purple solid; */
   height: 90%;
   width: 100%;
 }
@@ -54,26 +53,17 @@ export default {
   width: 100%;
   max-height: 100%;
   object-fit: contain;
-  /* box-shadow: 10px 5px 5px lightgrey; */
-}
-
-.question-entete {
-  /* border: green solid; */
-  /* height: 30%; */
 }
 
 .cont-img-question {
   display: flex;
   width: 45%;
-  /* height: 100%; */
-  /* border: purple solid; */
 }
 
 .container-reponses {
   justify-content: space-between;
   width: 80%;
   margin: 0 auto;
-  /* border: red solid; */
   height: 70%;
 }
 
@@ -82,7 +72,6 @@ export default {
 
   text-align: start;
   justify-content: center;
-  /* border: grey solid; */
   width: 50%;
 }
 
@@ -96,7 +85,6 @@ export default {
 .reponse:hover {
   background-color: transparent;
   color: rgba(118, 150, 222, 1);
-  /* font-size: 1.1vw; */
 }
 
 .question-libelle {
@@ -110,7 +98,6 @@ export default {
   font-style: italic;
   font-size: 1.2vw;
   margin-bottom: 1%;
-  /* margin-top: -1%; */
 }
 
 .good-answer {

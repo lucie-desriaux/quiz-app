@@ -69,12 +69,10 @@ h4 {
 
 .container-img-rep {
   display: flex;
-  /* border: black solid; */
   width: 80%;
 }
 
 .cont-img {
-  /* border: green solid; */
   width: 10%;
   text-align: center;
 }
@@ -85,7 +83,6 @@ h4 {
 }
 
 .cont-reponses {
-  /* border: solid pink; */
   margin-left: 4%;
 }
 
@@ -97,7 +94,6 @@ h4 {
   cursor: pointer;
   text-decoration: none;
   color: black;
-  /* margin-top: 1; */
 }
 
 .questions-libelle:hover {
