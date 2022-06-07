@@ -6,7 +6,7 @@
         <h2>Votre score est de {{ score }} points</h2>
         <p>{{ text }}</p>
         <p>
-          Vous êtes {{ rank }} / {{ registeredScores.length }} au classement
+          Tu es {{ rank }} / {{ registeredScores.length }} au classement
           général.
         </p>
       </div>
