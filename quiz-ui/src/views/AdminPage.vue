@@ -100,10 +100,10 @@ export default {
     async checkPassword() {
       var body = '{"password":"' + this.password + '"}';
       var quizApiResult = await quizApiService.login(body);
-      if (quizApiResult) {
+      if (quizApiResult.status == 200) {
         authStorageService.saveToken(quizApiResult.data.token);
         this.adminMode = "admin";
-      } else {
+      } else if (quizApiResult.status == 401) {
         const passwordField = document.querySelector("#wrongPasswordMsg");
         passwordField.style.visibility = "visible";
       }
