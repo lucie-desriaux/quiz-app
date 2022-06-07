@@ -1,46 +1,30 @@
 <template>
-  <div v-if="display === 'admin'">
-    <!-- <p>là c'est admin</p> -->
-    <div class="container-all-question">
-      <div class="question-entete">
-        <p class="question-sub-title">{{ question.title }}</p>
-        <h3 class="question-libelle">{{ question.text }}</h3>
+  <div class="container-all-question">
+    <div class="question-entete">
+      <p class="question-sub-title">{{ question.title }}</p>
+      <h3 class="question-libelle">{{ question.text }}</h3>
+    </div>
+    <div class="container-reponses d-flex">
+      <div class="cont-img-question">
+        <img class="img-questions" v-if="question.image" :src="question.image" />
       </div>
-      <div class="container-reponses d-flex">
-        <div class="cont-img-question">
-          <img class="img-questions" v-if="question.image" :src="question.image" />
+      <div v-if="display === 'admin'" class="reponses d-flex flex-column">
+        <p class="reponse-admin" v-for="(possibleAnswers, index) in question.possibleAnswers"
+          @click="$emit('answer-selected', index)">
+        <div class="good-answer" v-if="possibleAnswers.isCorrect == 1">{{ index + 1 }}. {{ possibleAnswers.text }}
         </div>
-        <div class="reponses d-flex flex-column">
-          <p class="reponse-admin" v-for="(possibleAnswers, index) in question.possibleAnswers"
-            @click="$emit('answer-selected', index)">
-          <div class="good-answer" v-if="possibleAnswers.isCorrect == 1">{{ index + 1 }}. {{ possibleAnswers.text }}
-          </div>
-          <div v-else mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
-          </p>
-        </div>
+        <div v-else mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
+        </p>
+      </div>        
+      <div  v-else class="reponses d-flex flex-column">
+        <a class="reponse" v-for="(possibleAnswers, index) in question.possibleAnswers"
+          @click="$emit('answer-selected', index)">
+          <div mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
+        </a>
       </div>
     </div>
   </div>
-  <div v-else>
-    <div class="container-all-question">
-      <div class="question-entete">
-        <p class="question-sub-title">{{ question.title }}</p>
-        <h3 class="question-libelle">{{ question.text }}</h3>
-      </div>
-
-      <div class="container-reponses d-flex">
-        <div class="cont-img-question">
-          <img class="img-questions" v-if="question.image" :src="question.image" />
-        </div>
-        <div class="reponses d-flex flex-column">
-          <a class="reponse" v-for="(possibleAnswers, index) in question.possibleAnswers"
-            @click="$emit('answer-selected', index)">
-            <div mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 </template>
 
 <script>
@@ -130,7 +114,7 @@ export default {
 }
 
 .good-answer {
-  background-color: rgba(118, 150, 222, 0.2);
+  background-color: rgba(99, 237, 90, 0.2);
   cursor: default;
 }
 

@@ -33,6 +33,10 @@ export default {
       this.$router.push("/questions");
     },
   },
+  async created() {
+    console.log("Composant New Start Quiz page 'created'");
+    participationStorageService.clear();
+  },
 };
 </script>
 

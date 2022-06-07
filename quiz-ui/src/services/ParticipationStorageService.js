@@ -1,6 +1,8 @@
 export default {
   clear() {
-		window.localStorage.removeItem("playerName", "participationScore", "answers");
+		window.localStorage.removeItem("playerName");
+		window.localStorage.removeItem("participationScore");
+		window.localStorage.removeItem("answers");
   },
   savePlayerName(playerName) {
 		window.localStorage.setItem("playerName", playerName);
