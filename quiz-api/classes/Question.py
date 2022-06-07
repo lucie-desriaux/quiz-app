@@ -173,7 +173,7 @@ def UpdateQuestion(position, body):
 
     # Check if possible answers are correct
     if not CheckCorrectAnswer(question.possibleAnswers):
-        return 400
+        return '', 400
 
     # Update question
     request = f"UPDATE Question SET title = \"{question.title}\", text = \"{question.text}\", image = \"{question.image}\", position = {question.position} WHERE id = {questionId}"
