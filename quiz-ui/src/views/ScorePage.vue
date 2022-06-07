@@ -1,13 +1,13 @@
 <template>
   <div class="main-container main-container-score flex-column">
     <div class="container-congrats d-flex">
-      <img class="gif" :src=gif />
+      <img class="gif" :src="gif" />
       <div>
         <h2>Votre score est de {{ score }} points</h2>
-        <p>{{ texte }}</p>
+        <p>{{ text }}</p>
         <p>
-          Vous êtes {{ classement }} / {{ registeredScores.length }} au
-          classement général.
+          Vous êtes {{ rank }} / {{ registeredScores.length }} au classement
+          général.
         </p>
       </div>
     </div>
@@ -15,9 +15,14 @@
       <div class="part-left-score">
         <h3>Meilleurs scores</h3>
         <div class="high-score-container">
-          <div class="heigh-score" v-for="(scoreEntry, index) in registeredScores" v-bind:key="scoreEntry.date">
+          <div
+            class="heigh-score"
+            v-for="(scoreEntry, index) in registeredScores"
+            v-bind:key="scoreEntry.date"
+          >
             <div>
-              <span class="classement">{{ index + 1 }}. </span>{{ scoreEntry.playerName }}
+              <span class="classement">{{ index + 1 }}. </span
+              >{{ scoreEntry.playerName }}
             </div>
             <div class="score">{{ scoreEntry.score }}</div>
           </div>
@@ -26,7 +31,10 @@
       <div class="part-right-score">
         <h3>Vos scores</h3>
         <div class="your-score-container">
-          <div v-for="scoreEntry in registeredScores" v-bind:key="scoreEntry.date">
+          <div
+            v-for="scoreEntry in registeredScores"
+            v-bind:key="scoreEntry.date"
+          >
             <div class="your-score" v-if="scoreEntry.playerName == playerName">
               <div>{{ scoreEntry.playerName }}</div>
               <div class="score">{{ scoreEntry.score }}</div>
@@ -35,7 +43,11 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-outline-primary btn-grey btn-menu" @click="$router.push('/')">
+    <button
+      type="button"
+      class="btn btn-outline-primary btn-grey btn-menu"
+      @click="$router.push('/')"
+    >
       Revenir au menu
     </button>
   </div>
@@ -49,12 +61,11 @@ export default {
   name: "Score",
   data() {
     return {
-      listeQuestions: [],
       registeredScores: [],
       playerName: "",
       score: 0,
-      texte: "",
-      classement: 0,
+      text: "",
+      rank: 0,
       gif: "",
     };
   },
@@ -70,34 +81,38 @@ export default {
       participationStorageService.saveParticipationScore(result.data.score);
     }
     this.score = participationStorageService.getParticipationScore();
-    var quizInfoApiResult = await quizApiService.getQuizInfo();
-    var quizInfo = quizInfoApiResult.data.scores;
-    var quizInfoApiResult = await quizApiService.getQuestions();
+    var questionList = await quizApiService.getQuestions();
     var nbQuestions = quizInfoApiResult.data.length;
-    this.registeredScores = quizInfo;
-    // TODO GIF
     if (this.score == nbQuestions) {
-      this.texte =
+      this.text =
         "Félicitations " + playerName + "! Tu es un vrai fan Disney !";
       this.gif = "../../public/olaf-frozen.gif";
-    } else if (this.score >= Math.round((4 * nbQuestions) / 5) && this.score < nbQuestions) {
-      this.texte = "C'est un presque parfait " + playerName + "! Bravo !";
+    } else if (
+      this.score >= Math.round((4 * nbQuestions) / 5) &&
+      this.score < nbQuestions
+    ) {
+      this.text = "C'est un presque parfait " + playerName + "! Bravo !";
       this.gif = "../../public/donald-good.gif";
-    } else if (this.score >= Math.round(nbQuestions / 2) && this.score < Math.round((4 * nbQuestions) / 5)) {
-      this.texte =
+    } else if (
+      this.score >= Math.round(nbQuestions / 2) &&
+      this.score < Math.round((4 * nbQuestions) / 5)
+    ) {
+      this.text =
         "C'est pas mal " + playerName + ", mais tu peux mieux faire !";
       this.gif = "../../public/happy-cat.gif";
     } else if (this.score >= 1 && this.score < Math.round(nbQuestions / 2)) {
-      this.texte =
+      this.text =
         "Retourne réviser tes classiques " +
         playerName +
         ", et reviens jouer !";
       this.gif = "../../public/stitch-sad.gif";
     } else {
-      this.texte = "Oups, tu le fais exprès " + playerName + "...?";
+      this.text = "Oups, tu le fais exprès " + playerName + "...?";
       this.gif = "../../public/simba-bad.gif";
     }
-
+    var quizInfoApiResult = await quizApiService.getQuizInfo();
+    var quizInfo = quizInfoApiResult.data.scores;
+    this.registeredScores = quizInfo;
     var lastSubmitDate = "1970-01-01";
     for (let i = 0; i < this.registeredScores.length; i++) {
       if (
@@ -105,7 +120,7 @@ export default {
         this.registeredScores[i].score == this.score
       ) {
         if (lastSubmitDate < this.registeredScores[i].date) {
-          this.classement = i + 1;
+          this.rank = i + 1;
           break;
         }
       }

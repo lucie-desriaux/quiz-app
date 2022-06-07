@@ -3,7 +3,11 @@
     <h1 class="question-title">
       Question {{ currentQuestionPosition }} / {{ totalNumberOfQuestions }}
     </h1>
-    <QuestionDisplay display="quiz" :question="currentQuestion" @answer-selected="answerClickedHandler" />
+    <QuestionDisplay
+      display="quiz"
+      :question="currentQuestion"
+      @answer-selected="answerClickedHandler"
+    />
   </div>
 </template>
 

@@ -2,8 +2,18 @@
   <div class="main-container">
     <div class="container-left">
       <h2>Testez vos connaissances</h2>
-      <img alt="Vue logo" class="logo" src="@/assets/images/logo2.png" width="" height="60" />
-      <button type="button" class="btn btn-outline-primary btn-grey" @click="$router.push('/start-new-quiz-page')">
+      <img
+        alt="Vue logo"
+        class="logo"
+        src="@/assets/images/logo2.png"
+        width=""
+        height="60"
+      />
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-grey"
+        @click="$router.push('/start-new-quiz-page')"
+      >
         Démarrer le quiz !
       </button>
     </div>
@@ -13,7 +23,11 @@
     <div class="container-right">
       <h3>Meilleurs scores</h3>
       <div class="cont-score">
-        <div class="name-score" v-for="scoreEntry in registeredScores" v-bind:key="scoreEntry.date">
+        <div
+          class="name-score"
+          v-for="scoreEntry in registeredScores"
+          v-bind:key="scoreEntry.date"
+        >
           <div>{{ scoreEntry.playerName }}</div>
           <div class="score">{{ scoreEntry.score }}</div>
         </div>
@@ -61,7 +75,7 @@ h3 {
   width: 50%;
 }
 
-.container-left>* {
+.container-left > * {
   margin-bottom: 15%;
 }
 
@@ -76,15 +90,17 @@ h3 {
   height: 60%;
   border-radius: 50px;
   background: rgb(144, 238, 140);
-  background: linear-gradient(180deg,
-      rgba(144, 238, 140, 1) 0%,
-      rgba(227, 235, 55, 1) 17%,
-      rgba(222, 189, 94, 1) 29%,
-      rgba(219, 124, 132, 1) 41%,
-      rgba(211, 147, 235, 1) 57%,
-      rgba(146, 152, 209, 1) 78%,
-      rgba(118, 150, 222, 1) 89%,
-      rgba(125, 227, 230, 1) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(144, 238, 140, 1) 0%,
+    rgba(227, 235, 55, 1) 17%,
+    rgba(222, 189, 94, 1) 29%,
+    rgba(219, 124, 132, 1) 41%,
+    rgba(211, 147, 235, 1) 57%,
+    rgba(146, 152, 209, 1) 78%,
+    rgba(118, 150, 222, 1) 89%,
+    rgba(125, 227, 230, 1) 100%
+  );
   filter: blur(0.5px);
 }
 

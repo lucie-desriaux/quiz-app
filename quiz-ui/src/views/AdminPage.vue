@@ -226,6 +226,5 @@ export default {
   position: absolute;
   right: 8%;
   top: 31%;
-  /* left: 2%; */
 }
 </style>
