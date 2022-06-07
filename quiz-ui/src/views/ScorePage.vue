@@ -1,38 +1,54 @@
 <template>
   <div class="main-container main-container-score flex-column">
-
     <div class="container-congrats d-flex">
 
       <img class="gif" src="../assets/images/donald-good.gif" />
       <div>
         <h2>Votre score est de {{ score }} points</h2>
-        <!-- <p>Bien joué {{ playerName }}, vous avez fini le quiz !</p> -->
         <p>{{ texte }}</p>
+        <p>
+          Vous êtes {{ classement }} / {{ registeredScores.length }} au
+          classement général.
+        </p>
       </div>
     </div>
     <div class="container-score-part d-flex">
       <div class="part-left-score">
         <h3>Meilleurs scores</h3>
-        <div class="high-score-container ">
-          <div class="heigh-score" v-for="(scoreEntry, index) in registeredScores" v-bind:key="scoreEntry.date">
-            <div><span class="classement">{{ index + 1 }}. </span>{{ scoreEntry.playerName }}</div>
-            <div class="score"> {{ scoreEntry.score }}</div>
+        <div class="high-score-container">
+          <div
+            class="heigh-score"
+            v-for="(scoreEntry, index) in registeredScores"
+            v-bind:key="scoreEntry.date"
+          >
+            <div>
+              <span class="classement">{{ index + 1 }}. </span
+              >{{ scoreEntry.playerName }}
+            </div>
+            <div class="score">{{ scoreEntry.score }}</div>
           </div>
         </div>
       </div>
       <div class="part-right-score">
         <h3>Vos scores</h3>
         <div class="your-score-container">
-          <div v-for="scoreEntry in registeredScores" v-bind:key="scoreEntry.date">
+          <div
+            v-for="scoreEntry in registeredScores"
+            v-bind:key="scoreEntry.date"
+          >
             <div class="your-score" v-if="scoreEntry.playerName == playerName">
               <div>{{ scoreEntry.playerName }}</div>
-              <div class="score"> {{ scoreEntry.score }}</div>
+              <div class="score">{{ scoreEntry.score }}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-outline-primary btn-grey btn-menu" @click="$router.push('/')">
+    <button
+      type="button"
+      class="btn btn-outline-primary btn-grey btn-menu"
+      @click="$router.push('/')"
+    >
       Revenir au menu
     </button>
   </div>
@@ -48,7 +64,7 @@ export default {
     return {
       listeQuestions: [],
       registeredScores: [],
-      playerName: '',
+      playerName: "",
       score: 0,
       texte: "",
       classement: 0,
@@ -57,17 +73,16 @@ export default {
   },
   async created() {
     console.log("Composant Home page 'created'");
-
     var playerName = participationStorageService.getPlayerName();
     this.playerName = playerName;
-    var answers = participationStorageService.getAnswers();
-    var body =
-      '{"playerName": "' + playerName + '", "answers": [' + answers + "]}";
-    var result = await quizApiService.postParticipation(body);
-    participationStorageService.saveParticipationScore(result.data.score);
-    this.score = result.data.score;
-    console.log(result.data.answers);
-
+    if (!participationStorageService.getParticipationScore()) {
+      var answers = participationStorageService.getAnswers();
+      var body =
+        '{"playerName": "' + playerName + '", "answers": [' + answers + "]}";
+      var result = await quizApiService.postParticipation(body);
+      participationStorageService.saveParticipationScore(result.data.score);
+    }
+    this.score = participationStorageService.getParticipationScore();
     var quizInfoApiResult = await quizApiService.getQuizInfo();
     var quizInfo = quizInfoApiResult.data.scores;
     this.registeredScores = quizInfo;
@@ -90,8 +105,16 @@ export default {
 
     console.log(this.gif);
 
-
-
+    for (let i = 0; i < this.registeredScores.length; i++) {
+      if (
+        this.registeredScores[i].playerName == this.playerName &&
+        this.registeredScores[i].score == this.score
+      ) {
+        this.classement = i + 1;
+        console.log("oui");
+        break;
+      }
+    }
   },
 };
 </script>
@@ -114,7 +137,6 @@ export default {
   justify-content: space-around;
   margin: 0 auto;
 }
-
 
 .container-score-part {
   /* border: purple solid; */

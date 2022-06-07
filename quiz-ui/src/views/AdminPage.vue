@@ -60,6 +60,7 @@
 <script>
 import quizApiService from "@/services/QuizApiService";
 import authStorageService from "@/services/AuthStorageService";
+import participationStorageService from "@/services/ParticipationStorageService";
 import QuestionAdminDisplay from "@/views/QuestionAdminDisplay.vue";
 import QuestionsList from "@/views/QuestionsList.vue";
 import QuestionEdition from "@/views/QuestionEdition.vue";
@@ -88,8 +89,8 @@ export default {
   },
   async created() {
     console.log("Composant Admin page 'created'");
+    participationStorageService.clear();
     var token = authStorageService.getToken();
-    // Check token is ok TODO
     if (token) {
       this.adminMode = "admin";
     } else {
@@ -100,10 +101,10 @@ export default {
     async checkPassword() {
       var body = '{"password":"' + this.password + '"}';
       var quizApiResult = await quizApiService.login(body);
-      if (quizApiResult) {
+      if (quizApiResult.status == 200) {
         authStorageService.saveToken(quizApiResult.data.token);
         this.adminMode = "admin";
-      } else {
+      } else if (quizApiResult.status == 401) {
         const passwordField = document.querySelector("#wrongPasswordMsg");
         passwordField.style.visibility = "visible";
       }
