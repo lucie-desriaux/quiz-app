@@ -43,7 +43,6 @@ export default {
     async answerClickedHandler(position) {
       position++;
       this.answers.push(position);
-      console.log("hello : " + position);
       this.currentQuestionPosition + 1 > this.totalNumberOfQuestions
         ? this.endQuiz()
         : this.loadQuestionByPosition(++this.currentQuestionPosition);

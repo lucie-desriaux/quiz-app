@@ -72,21 +72,24 @@ export default {
     console.log("Composant Home page 'created'");
     var playerName = participationStorageService.getPlayerName();
     this.playerName = playerName;
-    var answers = participationStorageService.getAnswers();
-    var body =
-      '{"playerName": "' + playerName + '", "answers": [' + answers + "]}";
-    var result = await quizApiService.postParticipation(body);
-    participationStorageService.saveParticipationScore(result.data.score);
-    this.score = result.data.score;
+    if (!participationStorageService.getParticipationScore()) {
+      var answers = participationStorageService.getAnswers();
+      var body =
+        '{"playerName": "' + playerName + '", "answers": [' + answers + "]}";
+      var result = await quizApiService.postParticipation(body);
+      participationStorageService.saveParticipationScore(result.data.score);
+    }
+    this.score = participationStorageService.getParticipationScore();
     var quizInfoApiResult = await quizApiService.getQuizInfo();
     var quizInfo = quizInfoApiResult.data.scores;
     this.registeredScores = quizInfo;
     for (let i = 0; i < this.registeredScores.length; i++) {
       if (
-        this.registeredScores[i].playerName === this.playerName &&
-        this.registeredScores[i].score === this.score
+        this.registeredScores[i].playerName == this.playerName &&
+        this.registeredScores[i].score == this.score
       ) {
         this.classement = i + 1;
+        console.log("oui");
         break;
       }
     }
