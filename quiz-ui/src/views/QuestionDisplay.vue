@@ -1,6 +1,6 @@
 <template>
   <div v-if="display === 'admin'">
-    <p>là c'est admin</p>
+    <!-- <p>là c'est admin</p> -->
     <div class="container-all-question">
       <div class="question-entete">
         <p class="question-sub-title">{{ question.title }}</p>
@@ -8,18 +8,11 @@
       </div>
       <div class="container-reponses d-flex">
         <div class="cont-img-question">
-          <img
-            class="img-questions"
-            v-if="question.image"
-            :src="question.image"
-          />
+          <img class="img-questions" v-if="question.image" :src="question.image" />
         </div>
         <div class="reponses d-flex flex-column">
-          <a
-            class="reponse"
-            v-for="(possibleAnswers, index) in question.possibleAnswers"
-            @click="$emit('answer-selected', index)"
-          >
+          <a class="reponse" v-for="(possibleAnswers, index) in question.possibleAnswers"
+            @click="$emit('answer-selected', index)">
             <div mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
           </a>
         </div>
@@ -35,18 +28,11 @@
 
       <div class="container-reponses d-flex">
         <div class="cont-img-question">
-          <img
-            class="img-questions"
-            v-if="question.image"
-            :src="question.image"
-          />
+          <img class="img-questions" v-if="question.image" :src="question.image" />
         </div>
         <div class="reponses d-flex flex-column">
-          <a
-            class="reponse"
-            v-for="(possibleAnswers, index) in question.possibleAnswers"
-            @click="$emit('answer-selected', index)"
-          >
+          <a class="reponse" v-for="(possibleAnswers, index) in question.possibleAnswers"
+            @click="$emit('answer-selected', index)">
             <div mt-3>{{ index + 1 }}. {{ possibleAnswers.text }}</div>
           </a>
         </div>
@@ -106,7 +92,7 @@ export default {
 }
 
 .reponses {
-  font-size: 14px;
+  font-size: 20px;
 
   text-align: start;
   justify-content: center;
@@ -116,6 +102,7 @@ export default {
 
 .reponse {
   margin: 1%;
+  font-size: 20px;
   color: black;
   cursor: pointer;
 }

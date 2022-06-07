@@ -156,7 +156,6 @@ export default {
           this.$router.go();
           break;
         default:
-          console.log(quizApiResult.error);
           alert("Erreur lors de la suppression, réessayez plus tard.");
           break;
       }
