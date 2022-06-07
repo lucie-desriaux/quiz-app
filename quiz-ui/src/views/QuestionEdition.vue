@@ -1,48 +1,40 @@
 <template>
   <div class="container-edit-question">
-    <h2>Edition de question</h2>
-    <p>Texte</p>
-    <div class="input-container">
-      <input
-        id="position"
-        type="number"
-        min="1"
-        placeholder="1"
-        v-model="position"
-      />
-      <input id="title" type="text" placeholder="Titre" v-model="title" />
-      <input id="text" type="text" placeholder="Intitulé" v-model="text" />
-      <ImageUpload @file-change="imageFileChangedHandler" />
-      <div v-for="index in 4" :key="index">
-        <PossibleAnswerForm
-          :index="index - 1"
-          :possibleAnswer="possibleAnswers[index - 1]"
-        />
+    <h3>Edition de question</h3>
+    <div class="">
+      <div class="en-tete">
+        <div>
+          <input id="position" type="number" min="1" placeholder="1" v-model="position" />
+        </div>
+        <div>
+          <input id="title" type="text" placeholder="Titre" v-model="title" />
+        </div>
+        <div>
+          <input id="text" type="text" placeholder="Question" v-model="text" />
+        </div>
+
+      </div>
+
+      <div class="container-img-reponses">
+        <div class="img-edit">
+          <ImageUpload @file-change="imageFileChangedHandler" />
+        </div>
+        <div class="rep-edit">
+          <div v-for="index in 4" :key="index">
+            <PossibleAnswerForm :index="index - 1" :possibleAnswer="possibleAnswers[index - 1]" />
+          </div>
+        </div>
       </div>
     </div>
-    <div>
-      <button
-        type="button"
-        class="btn btn-outline-primary btn-grey"
-        @click="createOrUpdate"
-      >
+    <div class="btn-container">
+      <button type="button" class="btn btn-outline-primary btn-grey" @click="createOrUpdate">
         Sauvegarder
       </button>
-      <button
-        type="button"
-        class="btn btn-outline-primary btn-grey"
-        @click="cancelEdit"
-      >
+      <button type="button" class="btn btn-outline-primary btn-grey" @click="cancelEdit">
         Annuler
       </button>
     </div>
-    <button
-      type="button"
-      class="btn btn-outline-primary btn-grey"
-      @click="backToList"
-    >
-      Retour à la liste des questions
-    </button>
+
   </div>
 </template>
 
@@ -219,7 +211,67 @@ export default {
 
 <style>
 .container-edit-question {
-  border: red solid;
   margin: 2%;
+  width: 80%;
+  margin: 0 auto;
+  height: 60vh;
+}
+
+.container-edit-question h3 {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.container-img-reponses {
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  justify-content: space-around;
+  margin-top: 2%;
+}
+
+.img-edit {
+  /* border: lightgrey solid 1px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.rep-edit {
+  width: 70%;
+}
+
+.rep-edit input:first-child {
+  width: 92%;
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
+
+.en-tete {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 1%;
+}
+
+.en-tete div {
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 2%;
+}
+
+#position {
+  width: 10%;
+}
+
+div #title,
+div #text {
+  width: 100%;
+}
+
+.btn-container {
+  width: 40%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  /* margin-top: 1%; */
 }
 </style>
